@@ -1,11 +1,17 @@
 ## Chat Application
 
 
-Mikki, Aku, Hessu and Roopea have entered to chatroom 1 and have a little conversation each other, all the messages sent are delivered for all in the chatroom 1.
-<img src="./img/chat_1.png" alt="image 1" width="800" style="display: block; margin: 0;"/>
+Mikki, Aku, Hessu and Roope have entered to chatroom 1 and have a little conversation each other, all the messages sent are delivered for all in the chatroom 1.
+
+<img src="./img/chat_1.png" alt="image 1" width="800" style="display: block; margin: 0;"/>   
+
+&nbsp;
 
 Now Hessu and Aku have exited from the chatroom. Mikki and Roope have got a message from this.
-<img src="./img/chat_2.png" alt="image 1" width="800" style="display: block; margin: 0;"/>
+
+<img src="./img/chat_2.png" alt="image 1" width="800" style="display: block; margin: 0;"/>   
+
+&nbsp;
 
 ```
 endpoint: 
