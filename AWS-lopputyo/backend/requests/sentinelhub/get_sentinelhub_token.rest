@@ -1,0 +1,1 @@
+POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_token

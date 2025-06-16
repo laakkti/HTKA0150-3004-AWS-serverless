@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  background-color: #282c34;
+
+  /* override the Vite styles */
+  display: block; /* remove flex */
+  place-items: unset;
+}
+
+/* make sure #root stretches full width */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  text-align: center;
+}

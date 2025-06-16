@@ -1,0 +1,2 @@
+
+GET https://lj9dq4eo0m.execute-api.eu-north-1.amazonaws.com/student/scan

@@ -1,0 +1,39 @@
+Mahdollisimman yksinkertainen websocket-sovellus toteutettuna lambda-funktioilla,
+API-Gatewaylla ja DynamoDB:llä. Esimerkissä on käytetty uudempaa AWS
+JS SDK V3 -Apia. Esimerkissä on käytetty myös ES6 modules -syntaksia, ja siksi
+package.json -tiedostossa on "type": "module".
+
+Asiakkaat ottavat yhteyden lambda-funktioihin API-Gatewayn kautta. Websocket-serveriä
+ei tarvitse itse tehdä, vaan WSS:n toiminnot hoituvat laukaisemalla 
+Lambda-funktioita. Lambda-funktiot ovat yhdessä tiedostossa handlers.js.
+
+Ensimmäiseksi asiakas menee $connect-reittiin, mikä laukaisee connectHandler-lambdan.
+Tällöin asiakkaan connectionId tallentuu DynamoDB-kantaan ja websocket-yhteys muodostuu.
+
+$connect on ns. vakioreitti, joka on oltava ws-sovelluksessa aina. Siihen mennään aina
+kun asiakas yhdistää websocket-osoitteeseen. $disconnect on samanlainen, mutta siihen
+mennään silloin kun asiakas katkaisee yhteyden esim. sulkemalla asiakassovelluksen.
+
+$default on myös vakioreitti, mutta sen tarkoituksena on, että jos asiakas tekee pyyntöjä
+sellaisiin reitteihin, joita ei ole olemassa, ohjataan hänet tähän reittiin. Tällöin
+voidaan antaa esim. ilmoitus, että reitti ei ole käytössä.
+
+Kun asiakkaat ovat yhteydessä, he voivat lähettää broadcast-viestejä laukaisemalla
+broadcastHandler-lambdan. Tämä tapahtuu menemällä broadcast-reittiin, joka on ns. 
+custom-reitti. Tällöin reitin nimi on ilmoitettava pyynnössä. Kts. viestin lähetys alla.
+
+Esimerkissä ei ole yhteyden suojausta, eli authorisaatiota, joka pitäisi tehdä 
+$connect-reittiin. AWS suosittelee ns. lambda-authorisaatiota.
+
+Sovellusta voi kokeilla päätteessä wscatilla (npm i -g wscat) tai Postmanilla.
+
+Yhteydenotto wscatilla:
+
+wscat -c wss://XXXXXXXXX.execute-api.eu-north-1.amazonaws.com/dev
+wscat -c wss://ve0t3nej13.execute-api.eu-north-1.amazonaws.com/dev?Auth=jokusalainentunnus
+
+wscat -c wss://ox3iw9hth4.execute-api.eu-north-1.amazonaws.com/dev
+
+Broadcast-viesti voidaan lähettää päätteessä ja Postmanilla seuraavasti:
+
+{ "action": "broadcast", "data": "Tervehdys kaikille!" }

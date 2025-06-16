@@ -1,0 +1,19 @@
+{
+  "name": "aws-cognito-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tuito",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.4.1",
+    "@as-integrations/aws-lambda": "^2.0.1",
+    "@aws-sdk/client-cognito-identity-provider": "^3.282.0",
+    "@aws-sdk/client-dynamodb": "^3.272.0",
+    "graphql": "^16.6.0",
+    "@aws-sdk/lib-dynamodb": "^3.279.0"
+  }
+}

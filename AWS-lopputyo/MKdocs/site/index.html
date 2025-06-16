@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="None" name="description"/>
+<link href="./img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="./css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="./css/base.css" rel="stylesheet"/>
+<link href="./css/highlight.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="./js/jquery-3.2.1.min.js"></script>
+<script src="./js/bootstrap-3.3.7.min.js"></script>
+<script src="./js/highlight.pack.js"></script>
+<script src="./js/elasticlunr.min.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+          {title: "NDVI-kasvillisuusindeksi", url: "#_top", children: [
+              {title: "Testit", url: "#testit" },
+              {title: "K\u00e4ytt\u00f6esimerkki", url: "#kayttoesimerkki" },
+              {title: "teknisesti", url: "#teknisesti" },
+              {title: "\u2705 Oikean k\u00e4den s\u00e4\u00e4nt\u00f6 (Right-hand rule) \u2013 tiivistelm\u00e4", url: "#oikean-kaden-saanto-right-hand-rule-tiivistelma" },
+              {title: "TESTIT sentinelhub", url: "#testit-sentinelhub" },
+              {title: "TESTIT mongo", url: "#testit-mongo" },
+              {title: "UUTTA", url: "#uutta" },
+              {title: "API for NDVI-satellite images and statistics from Sentinel-hub services", url: "#api-for-ndvi-satellite-images-and-statistics-from-sentinel-hub-services" },
+          ]},
+        ];
+
+    </script>
+<script src="./js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<nav class="navbar wm-page-top-frame">
+<div class="container-fluid wm-top-container">
+<div class="wm-top-tool pull-right wm-vcenter">
+<form action="./search.html" class="dropdown wm-vcentered" id="wm-search-form">
+<button class="btn btn-sm btn-default" id="wm-search-show" type="submit"><i aria-hidden="true" class="fa fa-search"></i></button>
+<div class="input-group input-group-sm wm-top-search">
+<input autocomplete="off" class="form-control" id="mkdocs-search-query" name="q" placeholder="Search" type="text"/>
+<span class="input-group-btn" role="search">
+<button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" id="mkdocs-search-results"></ul>
+<button class="btn btn-default" id="wm-search-go" type="submit"><i aria-hidden="true" class="fa fa-search"></i></button>
+</span>
+</div>
+</form>
+</div>
+<div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+<button class="btn btn-sm btn-default wm-vcentered" id="wm-toc-button" type="button"><i aria-hidden="true" class="fa fa-th-list"></i></button>
+</div>
+<div class="wm-top-tool pull-right wm-vcenter">
+<div aria-label="back" class="btn-group wm-vcentered" role="group">
+<button class="btn btn-sm btn-default" id="hist-back" type="button"><i aria-hidden="true" class="fa fa-arrow-left"></i></button>
+<button class="btn btn-sm btn-default" id="hist-fwd" type="button"><i aria-hidden="true" class="fa fa-arrow-right"></i></button>
+</div>
+</div>
+<a class="wm-top-brand wm-top-link wm-vcenter" href="">
+<div class="wm-top-title">
+        HTKA0150-3004 AWS-serverless -NDVI demo for agriculture<br/>
+</div>
+</a>
+</div>
+</nav>
+<div class="wm-page-top-frame" id="main-content">
+<nav class="wm-toc-pane">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev1"><a class="wm-article-link wm-toc-text" href="">Introduction</a>
+</li>
+<li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Using the service</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="client/frontend/">Client example</a>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Sentinel-hub</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="sentinelhub/sentinelhub/">Overview</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="sentinelhub/evalscript/">Evalscript</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="misc/env/">Environment variables</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="sentinelhub/sentinelhub_auth/">Authentication</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">Main modules/methods</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="sentinelhub/sentinelhub_token/">Token</a>
+</li>
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="sentinelhub/getstatistics/">GetStatistics</a>
+</li>
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="sentinelhub/getimage/">GetImage</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Endpoints</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">user</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="auth/cognito/">overview</a>
+</li>
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="auth/signup/">signup</a>
+</li>
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="auth/login/">login</a>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">ndvi</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="routes/dates/">dates</a>
+</li>
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="routes/images/">images</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Tests</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="tests/user/">user</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="tests/sentinelhub/">sentinelhub</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="tests/mongo/">mongo</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="tests/ndvi/">ndvi</a>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev1 wm-toc-opener"><span class="wm-toc-text">Database</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev2"><a class="wm-article-link wm-toc-text" href="database/overview/">Overview</a>
+</li>
+<li class="wm-toc-li wm-toc-lev2 wm-toc-opener"><span class="wm-toc-text">MongoDB</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="env/">Environment variable</a>
+</li>
+<li class="wm-toc-li wm-toc-lev3 wm-toc-opener"><span class="wm-toc-text">Models</span>
+</li>
+<li class="wm-toc-li-nested collapse">
+<ul class="wm-toctree">
+<li class="wm-toc-li wm-toc-lev4"><a class="wm-article-link wm-toc-text" href="database/models/dateschema/">datesSchema</a>
+</li>
+<li class="wm-toc-li wm-toc-lev4"><a class="wm-article-link wm-toc-text" href="database/models/imageschema/">imageSchema</a>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev3"><a class="wm-article-link wm-toc-text" href="database/mongodb_js/">API (mongodb.js)</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="wm-toc-li wm-toc-lev1"><a class="wm-article-link wm-toc-text" href="utils/utils/">Utilities</a>
+</li>
+<li class="wm-toc-li wm-toc-lev1"><a class="wm-article-link wm-toc-text" href="libraries/libraries/">Libraries</a>
+</li>
+<li class="wm-toc-li wm-toc-lev1"><a class="wm-article-link wm-toc-text" href="deployment/deployment.md">Deployment</a>
+</li>
+<li class="wm-toc-li wm-toc-lev1"><a class="wm-article-link wm-toc-text" href="development/development.md">Development</a>
+</li>
+</ul>
+</nav>
+<div class="wm-content-pane">
+<iframe class="wm-article" name="article"></iframe>
+</div>
+</div>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<h1 id="ndvi-kasvillisuusindeksi">NDVI-kasvillisuusindeksi</h1>
+<p>https://fi.wikipedia.org/wiki/NDVI</p>
+<p>Sovellus perustuu aiksemmin totetutettuun (seuraavaan) sovellukseen
+frontend:
+https://laakkti.github.io/ytsp0300-3004/
+backend:
+https://laakkti.github.io/ytsp0200-3004/</p>
+<p>Tämä versio on yksinkertaistettu karsimalla joitakin toimintoja pois, tässä versiossa geometria (geoJson) syötetään (copy-paste)
+sovellukselle, joka tarkistaa oikeellisuuden ja korjaa tiettyjä virheitä automaattisesti, myös sen, että ns. "right-hand rule"<br>
+toteutuu.
+lisäksi käytetään viteä (tseekkaa fullstackopenista mikä on vite!!!)</br></p>
+<h3 id="testit">Testit</h3>
+<h3 id="kayttoesimerkki">Käyttöesimerkki</h3>
+<h4 id="rekisterointikirjautuminem">Rekisteröinti/kirjautuminem</h4>
+<h3 id="teknisesti">teknisesti</h3>
+<h4 id="rekisterointikirjautuminem_1">Rekisteröinti/kirjautuminem</h4>
+<p>tämä vois olla liittenä/käsitteinä (vai mikä se on TERMINOLOGIA) ja linkki siihen täältä</p>
+<h2 id="oikean-kaden-saanto-right-hand-rule-tiivistelma">✅ Oikean käden sääntö (Right-hand rule) – tiivistelmä</h2>
+<p>Kun käsitellään <strong>Polygoneja ja MultiPolygoneja</strong> (esim. GeoJSON- tai shapefile-muodossa GIS-sovelluksissa), <strong>oikean käden sääntö</strong> määrittää koordinaattien kiertosuunnan:</p>
+<ul>
+<li>🔹 <strong>Ulkoreuna</strong> (polygonin ääriviiva) tulisi kiertää <strong>vastapäivään</strong> (CCW, <em>counterclockwise</em>).</li>
+<li>🔹 <strong>Sisemmät renkaat</strong> (reiät polygonin sisällä) tulisi kiertää <strong>myötäpäivään</strong> (CW, <em>clockwise</em>).</li>
+</ul>
+<hr/>
+<h3 id="miksi-tama-on-tarkeaa">🧭 Miksi tämä on tärkeää?</h3>
+<p>Tämä sääntö varmistaa <strong>yhtenäisen geometrian esityksen</strong>, mikä on tärkeää esimerkiksi:</p>
+<ul>
+<li>📏 pinta-alan laskemisessa  </li>
+<li>🗺️ kartalla piirtämisessä/renderöinnissä  </li>
+<li>📐 geospatiaalisten operaatioiden (esim. sisältyvyys, leikkaus) tarkkuudessa</li>
+</ul>
+<p>Sovelluksen toimintaa/lopputulwmaa ei kuvata tässä sen enempää kuin se tämä versio eroaa em. kuvatusta frontendin linkistä</p>
+<p>TESTEISSÄ jätin tokenin pois, koska sillä ei ole käytännön merkitystä
+mongofb,js sisältää myös yhteyden luonnin jos sitä ei ole entuudetaan, joten poista lähinnä requestien koodistq yhteyden luonti pois</p>
+<p>mermaid jossa client websocket yhteys -&gt; sentinelhub -&gt;mongo
+marmaid client http lambda getImages from mongo </p>
+<pre><code>endpoints:
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/handler/getNdviImages
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_token
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_statistics
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/sentinelhub/getimage
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/mongo/getdates
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/mongo/getimages
+  POST - https://qz8q452n0a.execute-api.eu-north-1.amazonaws.com/mongo/getimage
+  wss://zaxu16xacl.execute-api.eu-north-1.amazonaws.com/dev
+functions:
+  connect: ndvi-websocket-app-dev-connect (59 MB)
+  disconnect: ndvi-websocket-app-dev-disconnect (59 MB)
+  getNdviDates: ndvi-websocket-app-dev-getNdviDates (59 MB)
+  getNdviImages: ndvi-websocket-app-dev-getNdviImages (59 MB)
+  get_sentinelhub_token: ndvi-websocket-app-dev-get_sentinelhub_token (59 MB)
+  get_sentinelhub_statistics: ndvi-websocket-app-dev-get_sentinelhub_statistics (59 MB)
+  get_sentinelhub_image: ndvi-websocket-app-dev-get_sentinelhub_image (59 MB)
+  get_mongo_dates: ndvi-websocket-app-dev-get_mongo_dates (59 MB)
+  get_mongo_allimages: ndvi-websocket-app-dev-get_mongo_allimages (59 MB)
+  get_mongo_image: ndvi-websocket-app-dev-get_mongo_image (59 MB)
+</code></pre>
+<p>Olis ehkä kannattanut tehdä amplify vai mikä se oli serveri</p>
+<p>Voisi olla niin, että aluksi leutaan sentinelhubista talletetaan mongoon ja luetaan momngosta
+logi kuten nytkin tsktikenttää dates with getStatistics  get images siten että image by image save to mongo<br/>
+read from mongo all tai valittu
+vai olisko niin ettei luetan kuin yksi eli kuten ennekin haetaan eka datet ja sitten valitaan ja haetaan image, 
+mutta silloin socket olisi turha kun oli tarkoitus että edeistymisestä ilmoitetaan<br/>
+joten haetaan kaikki ja uusin noletusksena näkyviin listaan</p>
+<p>Kutsu luku mongosta annetaan clientista samoin kuin datanhaku käsky sentinelhubista
+eli kun socket kertoo että data haettu ja tallenentuu mongoon annetaan uusi köäsky lukea tietokannasta tietyltä 
+aikaväliltä olevia tietoja.</p>
+<p>Aluksi web-socketin kautta käyttäjä sai tietoa prosessin etenemisestä. on hyvä antaa 
+tieto jos/kun toiminto kestää pidempään.</p>
+<p>client:
+socket.send(JSON.stringify({ action: "getNdviImages", data: { ... } }));</p>
+<p>action: "getNdviImages"</p>
+<p>getNdviImages is defined in serverless.yml the routeksi</p>
+<p>functions:
+  getNdviImages:
+    handler: handler.getNdviImages
+    events:
+      - websocket:
+          route: getNdviImages</p>
+<h2 id="testit-sentinelhub">TESTIT sentinelhub</h2>
+<h3 id="requests">requests</h3>
+<pre><code>requests/
+└── get_sentinelhub_token.rest
+</code></pre>
+<pre><code>sentinelhub/
+└── lambda/
+    └── get_sentinelhub_token.js
+</code></pre>
+<p>HUOMIOI .env jossa secretit koska ei ollut oikeuksia käyttääsecret manageia vai mikä se oli</p>
+<pre><code>serverless.yml
+    functions:
+        get_sentinelhub_token:
+            handler: sentinelhub/lambda/get_sentinelhub_token.handler
+            events:
+            - httpApi:
+                path: /sentinelhub/get_sentinelhub_token
+                method: post
+    iam:
+    role:
+        statements:
+        - Effect: Allow
+            Action: 
+            - ssm:GetParameter
+            - ssm:PutParameter
+            Resource: "*
+
+</code></pre>
+<p>huom httpApi  kun muuten kun kysessä on varsinaisesti websocket-app</p>
+<ul>
+<li>websocket:
+          route: getNdviImages   </li>
+</ul>
+<p>selitä mitä ja miksi on esim. aws-ssm? tässä tapauksessa tallenetaan token, joka on voimassa 60min. 
+ettei tarvitse hakea joka kerta uudelleen, joka vie resureeseja sentinelhubista ja on myöskin rajoitettu niiden käyttö tietyllä aikavakiolla eli tietyssä ajassa tietty määrä sallittu.</p>
+<pre><code>requests/
+└── get_statistics.rest
+</code></pre>
+<pre><code>sentinelhub/
+└── lambda/
+    └── get_statistics.js
+</code></pre>
+<h2 id="testit-mongo">TESTIT mongo</h2>
+<h3 id="requests_1">requests</h3>
+<p>yksinkertainen kaavio
+websocket ja lambda funktiot </p>
+<p>kappaleessa tähän linkki on kerrottu sovelluksesta vaikka kyseesä on backend kurssi olen tehnyt myös frontendin koska se on oleellinen... </p>
+<h2 id="uutta">UUTTA</h2>
+<p>endpointit</p>
+<p>rekisteröityminen 
+- kaavio
+- mitä tarvitaan yml-fileen käytä tekoälyä kun kysyt mitä tarvitaan (anna yml-siäsltä AI:lle) cognito 
+- tiedosto hierarkia
+- testit rest koodi (joka voidaan toistaa copy-paste) - ja kuva kaappaus
+- clientilta kaavio hierarkia (tiedosto services/user...) ja todellinen kuvakaappaus</p>
+<ul>
+<li>jso email löytyy jo  pitäisi tulla ilmoitus kuten loginissa käyttäjätunntu tai salasana väärin</li>
+<li>signupissa ilmoitus jos salasana ei ole valid ja email ei ole valid </li>
+</ul>
+<pre><code>endpoints:
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/login
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/signup
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/private
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/handler/getNdviImages
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_token
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_statistics
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/getimage
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/mongo/getdates
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/mongo/getimages
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/ndvi/getimages
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/mongo/getimage
+  wss://w2iuklgym6.execute-api.eu-north-1.amazonaws.com/dev
+functions:
+  loginUser: ndvi-websocket-app-dev-loginUser
+  signupUser: ndvi-websocket-app-dev-signupUser
+  privateAPI: ndvi-websocket-app-dev-privateAPI
+  authorizer: ndvi-websocket-app-dev-authorizer
+  connect: ndvi-websocket-app-dev-connect
+  disconnect: ndvi-websocket-app-dev-disconnect
+  getNdviDates: ndvi-websocket-app-dev-getNdviDates
+  getNdviImages: ndvi-websocket-app-dev-getNdviImages
+  get_sentinelhub_token: ndvi-websocket-app-dev-get_sentinelhub_token
+  get_sentinelhub_statistics: ndvi-websocket-app-dev-get_sentinelhub_statistics
+  get_sentinelhub_image: ndvi-websocket-app-dev-get_sentinelhub_image
+  get_mongo_dates: ndvi-websocket-app-dev-get_mongo_dates
+  get_mongo_allimages: ndvi-websocket-app-dev-get_mongo_allimages
+  get_allimages: ndvi-websocket-app-dev-get_allimages
+  get_mongo_image: ndvi-websocket-app-dev-get_mongo_image
+</code></pre>
+<h2 id="api-for-ndvi-satellite-images-and-statistics-from-sentinel-hub-services">API for NDVI-satellite images and statistics from Sentinel-hub services</h2>
+<p>This RESTful API makes it possible to getting NDVI (Normalized Difference Vegetation Index) satellite data from sentinel-hub service sentinel-2-l1c and serve it for client.
+So the e.g. farmers and agriculture peoples can see the growing situation of the plants.</p>
+<h3 id="ndvi-normalized-difference-vegetation-index">NDVI (Normalized Difference Vegetation Index)</h3>
+<p>The well known and widely used NDVI is a simple, but effective index for quantifying green vegetation. It normalizes green leaf scattering in Near Infra-red wavelengths with chlorophyll absorption in red wavelengths.
+The value range of the NDVI is -1 to 1. Negative values of NDVI (values approaching -1) correspond to water. Values close to zero (-0.1 to 0.1) generally correspond to barren areas of rock, sand, or snow. Low, positive values represent shrub and grassland (approximately 0.2 to 0.4), while high values indicate temperate and tropical rainforests (values approaching 1). It is a good proxy for live green vegetation.</p>
+<p><img alt="image 1" src="img/ndvi.jpg" width="600"/></p>
+<h3 id="why-sentinel-hub">Why sentinel-hub</h3>
+<p><a href="https://medium.com/sentinel-hub/tk-why-its-time-to-stop-processing-satellite-imagery-on-your-laptop-a09dbf8c72c0/" target="_blank">Why it’s time to stop processing satellite imagery on your laptop</a></p>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+</body>
+</html>
+<!--
+MkDocs version : 1.6.0
+Build Date UTC : 2025-06-13 03:11:35.952402+00:00
+-->

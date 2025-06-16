@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Testing - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <p>ÄTmä on normaalitiöa kun jokin geometria valitaan/aktovoidaan niin haetaan päivämärräyt joille on ko. geometriasta NDVi dataa.
+kokiellaan samanaikaisia kutsuja list routeen, normaalisti route lukee tietokannasta 
+tiedot ja jos tietokanta ei ole ajantasaalla päivitää sen mm. NDVi omages and statistisc data dates.</p>
+<p>update dates
+- select endDate earlier than the potential date which has nDVI-iamge with passed with specifig conditions</p>
+<p>because of nature of the server it should serve multiple concurrent requests
+We have to rtest how to handle manage this and which are vasteaika process time
+also depens of resource we have or ea are ready to pay.</p>
+<p>lets look after response time of the process where multiple concurrent field geometry sets </p>
+<p>do we must have/own two server one for update data and one for serve with/ NDVI-images from database</p>
+<p>when there is trafic for updating data from sentinelhub to database
+is there room enought to serve just request /query
+query is from database
+request is from server</p>
+<p>too many ewqueara HTTP status code 429
+voisiko databaseen kirjoittaminenhidastaa sen verran ettei em. tapahdu??
+kuormitustesti stressitesti</p>
+<ol>
+<li>
+<p>24.2.2024
+   2 x 30 peltosettiä samaanaikaan</p>
+</li>
+<li>
+<p>lisätään Mongo ja list-routen koodi
+MIKÄ virheilmoitus että resurssit sentinelhubilla loppu!!!!</p>
+</li>
+</ol>
+<p>Should be tested concuretn clients request so can be seen resources needed.</p>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

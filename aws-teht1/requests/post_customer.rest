@@ -1,0 +1,7 @@
+POST  https://fqnzdacnyl.execute-api.eu-north-1.amazonaws.com/
+Content-Type: application/json
+
+{
+  "name": "laakkti",
+  "email": "AA4598@student.jamk.fi"
+}

@@ -1,0 +1,185 @@
+service: ndvi-websocket-app
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-north-1
+  environment: # ympäristömuuttujat
+    user_pool_id: { Ref: UserPool } # cogniton user pool
+    client_id: { Ref: UserClient } # cogniton client id
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - execute-api:ManageConnections # websocketia varten
+            - ssm:PutParameter # sentinelHub tokenin tallennus smm-storeen
+            - ssm:GetParameter # sentinelHub tokenin luku ssm-storesta             
+          Resource:
+            - arn:aws:execute-api:${self:provider.region}:*:*/@connections/*
+            - arn:aws:ssm:${self:provider.region}:${aws:accountId}:parameter/* 
+        - Effect: Allow
+          Action:
+          - cognito-idp:AdminCreateUser
+          - cognito-idp:AdminSetUserPassword
+          - cognito-idp:AdminInitiateAuth
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminGetUser
+          Resource: arn:aws:cognito-idp:eu-north-1:440744232771:userpool/eu-north-1_ShT10PSUI
+
+
+  httpApi: # httpApi-asetukset
+    cors: true
+    authorizers:
+      PrivateAuthorizer: # Cogniton authorizerin nimi
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl:
+          Fn::Join:
+            - ""
+            - - "https://cognito-idp."
+              - "${opt:region, self:provider.region}"
+              - ".amazonaws.com/"
+              - Ref: UserPool
+        audience:
+          - Ref: UserClient
+    
+functions:
+  loginUser: # sisäänkirjautuminen
+    handler: user/login.handler
+    events:
+      - httpApi:
+          path: /user/login
+          method: post
+
+  signupUser: # rekisteröityminen eli tunnareiden luonti
+    handler: user/signup.handler
+    events:
+      - httpApi:
+          path: /user/signup
+          method: post
+
+  privateAPI: # suojattu funktio ja reitti
+    handler: user/private.handler
+    events:
+      - httpApi:
+          path: /user/private
+          method: post
+          authorizer: PrivateAuthorizer # suojaus
+
+  connect:
+    handler: websocket/connect.handler
+    events:
+      - websocket:
+          route: $connect          
+  
+  disconnect:
+    handler: websocket/disconnect.handler
+    events:
+      - websocket:
+          route: $disconnect
+  
+  getNdviDates: # websocket
+    handler: websocket/getNdviDates.handler
+    timeout: 240
+    events:
+      - websocket:
+          route: getNdviDates
+
+  validateGeojson:
+    handler: NDVI/lambda/validateGeojson.handler
+    events:
+      - httpApi:
+          path: /validategeojson
+          method: post
+
+  get_allimages:
+    handler: NDVI/lambda/getimages.handler
+    events:
+      - httpApi:
+          path: /ndvi/getimages
+          method: post
+          authorizer: PrivateAuthorizer # suojaus
+    
+  # TESTIT/requests
+  get_sentinelhub_token:
+    handler: sentinelhub/lambda/get_token.handler
+    events:
+    - httpApi:
+        path: /sentinelhub/get_token
+        method: post
+  
+  get_sentinelhub_statistics:
+    handler: sentinelhub/lambda/get_statistics.handler
+    timeout: 60
+    events:
+      - httpApi:
+          path: /sentinelhub/get_statistics
+          method: post
+
+  get_sentinelhub_image:
+    handler: sentinelhub/lambda/get_image.handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /sentinelhub/getimage
+          method: post
+  
+  get_mongo_dates:
+    handler: mongo/lambda/getdates.handler
+    events:
+      - httpApi:
+          path: /mongo/getdates
+          method: post
+
+  get_mongo_allimages:
+    handler: mongo/lambda/getimages.handler
+    events:
+      - httpApi:
+          path: /mongo/getimages
+          method: post
+  
+  get_mongo_image:
+    handler: mongo/lambda/get_image.handler
+    events:
+      - httpApi:
+          path: /mongo/getimage
+          method: post
+
+resources: # resurssit eli palvelut oletuspalveluiden lisäksi
+  Resources:
+    UserPool: # cognito userpool
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: serverless-auth-pool
+        Schema: # käyttäjän tietojen skeema cognitossa. Tässä pelkkä email, ei enää
+          - Name: email
+            Required: true
+            Mutable: true          
+          - Name: name
+            AttributeDataType: String
+            Mutable: true
+            Required: false
+          
+        Policies:
+          PasswordPolicy: # salasanan ominaisuudet
+            MinimumLength: 6
+        AutoVerifiedAttributes: ["email"] # email validoidaan
+
+    UserClient: # cognito userpoolin client
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: user-pool-ui
+        GenerateSecret: false
+        UserPoolId: { Ref: UserPool }
+        AccessTokenValidity: 5 # token validi 5 tuntia
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - "ADMIN_NO_SRP_AUTH" # tavallinen authorisaatio emaililla ja salasanalla
+    
+  

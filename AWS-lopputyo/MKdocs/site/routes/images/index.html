@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>images - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<p>The route needs valid token by cognito login.
+Returns all the NDVI images with statictics for the given sentinelid.</p>
+<div class="mermaid">sequenceDiagram
+    Autonumber
+    participant Client
+    participant AWS as AWS: getimages
+    participant MongoDB
+
+    activate AWS
+    Note left of AWS: .../ndvi/getimages
+    Client-&gt;&gt;AWS: Request (token in header)
+    AWS-&gt;&gt;AWS: checkToken
+
+    alt Token invalid or missing
+        AWS--&gt;&gt;Client: 401 Unauthorized
+    else Token valid
+        alt Image data found in MongoDB
+            AWS-&gt;&gt;MongoDB: Query for image data
+            MongoDB--&gt;&gt;AWS: arrays of Image data
+            AWS--&gt;&gt;Client: 200 array of Image data
+        else Image data not found in MongoDB
+            AWS--&gt;&gt;Client: 404 Not Found
+        end
+    end
+    deactivate AWS
+</div>
+<pre><code>NDVI/
+└── lambda/
+    └── getimages.js
+</code></pre>
+<h4 id="definition-for-serverlessyml">Definition for serverless.yml</h4>
+<p><code>functions:</code></p>
+<pre><code>get_allimages:
+    handler: NDVI/lambda/getimages.handler
+    events:
+      - httpApi:
+          path: /ndvi/getimages
+          method: post
+          authorizer: PrivateAuthorizer
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Endpoint Url</th>
+<th>HTTP Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/ndvi/getimages</td>
+<td>POST</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sentinelid</td>
+<td>string</td>
+<td>id for image (generated when image with related data fetched from sentinelhub and saved into database)</td>
+</tr>
+<tr>
+<td>epsg</td>
+<td>integer</td>
+<td>optional, used when related coordinates need to be in system EPSG:3067</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response array of items</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>average</td>
+<td>float</td>
+<td>Average value of the NDVI</td>
+</tr>
+<tr>
+<td>max</td>
+<td>float</td>
+<td>Maximum value of the NDVI</td>
+</tr>
+<tr>
+<td>min</td>
+<td>float</td>
+<td>Minimum value of the NDVI</td>
+</tr>
+<tr>
+<td>std</td>
+<td>float</td>
+<td>Standard deviation value of the NDVI</td>
+</tr>
+<tr>
+<td>image</td>
+<td></td>
+<td>Image of the NDVI</td>
+</tr>
+<tr>
+<td>image.minX</td>
+<td>float</td>
+<td>Bounding rect minimum X value, coordinate reference system WGS84 (EPSG:4326)</td>
+</tr>
+<tr>
+<td>image.minY</td>
+<td>float</td>
+<td>Bounding rect minimum Y value, coordinate reference system WGS84 (EPSG:4326)</td>
+</tr>
+<tr>
+<td>image.maxX</td>
+<td>float</td>
+<td>Bounding rect maximum X value, coordinate reference system WGS84 (EPSG:4326)</td>
+</tr>
+<tr>
+<td>image.maxY</td>
+<td>float</td>
+<td>Bounding rect maximum Y value, coordinate reference system WGS84 (EPSG:4326)</td>
+</tr>
+<tr>
+<td>image.dataUrl</td>
+<td>Base&amp;4 string</td>
+<td>Image in Base64 string format (i.e., data:image/png;base64...)</td>
+</tr>
+<tr>
+<td>scale</td>
+<td>array</td>
+<td>Array for NDVI value categories as colours</td>
+</tr>
+<tr>
+<td>scale.color</td>
+<td>string</td>
+<td>Colour as RGB string value</td>
+</tr>
+<tr>
+<td>scale.amount</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
+<td>scale.from</td>
+<td>float</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response datatypes</strong></p>
+<pre><code class="language-json">{
+  "average": "float",
+  "max": "float",
+  "min": "float",
+  "std": "float",
+    "image": {
+        "minX": "float",
+        "minY": "float",
+        "maxX": "float",
+        "maxY": "float",
+        "dataUrl": "Base64 string"
+    },
+    "scale": [
+        {
+            "color": "string",
+            "amount": "integer",
+            "from": "float"
+        },
+        {
+            "color": "string",
+            "amount": "integer",
+            "from": "float"
+        },
+        {
+            "color": "string",
+            "amount": "integer",
+            "from": "float"
+        },
+        {
+            "color": "string",
+            "amount": "integer",
+            "from": "float"
+        }
+    ]
+}
+</code></pre>
+<p><strong>Example</strong></p>
+<pre><code class="language-json">{
+  "average": 0.5657129907618343,
+  "max": 0.75,
+  "min": 0.15,
+  "std": 0.90 
+    "image": {
+        "minX": 26.1930913,
+        "minY": 62.9857763,
+        "maxX": 26.194766,
+        "maxY": 62.9867615
+        "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABuCAYAAACnQwS5AAADnEl..."
+    },
+    "scale": [
+        {
+            "color": "rgb(244, 67, 54)",
+            "amount": 0,
+            "from": 0.15
+        },
+        {
+            "color": "rgb(255, 152, 0)",
+            "amount": 0,
+            "from": 0.3
+        },
+        {
+            "color": "rgb(255, 235, 59)",
+            "amount": 22,
+            "from": 0.45
+        },
+        {
+            "color": "rgb(76, 175, 80)",
+            "amount": 78,
+            "from": 0.6
+        }
+    ]
+}
+</code></pre>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

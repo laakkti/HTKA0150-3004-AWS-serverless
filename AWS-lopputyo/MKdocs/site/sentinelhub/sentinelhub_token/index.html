@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Token - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Token Management Module", url: "#_top", children: [
+              {title: "Imports", url: "#imports" },
+              {title: "Variables", url: "#variables" },
+              {title: "Functions", url: "#functions" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h4 id="sentinelhub_tokenjs">sentinelhub_token.js</h4>
+<h1 id="token-management-module">Token Management Module</h1>
+<p>This JavaScript module manages authentication tokens for Sentinel Hub. It includes functions to authenticate, check token expiration, and middleware to ensure valid tokens are attached to requests. Below is a summary of the key components and functionality.</p>
+<h2 id="imports">Imports</h2>
+<ul>
+<li><strong>sentinelHub</strong>: A library for interacting with Sentinel Hub's API.</li>
+<li><strong>auth</strong>: A custom utility module for authenticating with Sentinel Hub.</li>
+<li><strong>_checkToken</strong>: A custom utility module for checking token expiration.</li>
+</ul>
+<h2 id="variables">Variables</h2>
+<ul>
+<li><strong>authToken</strong>: A variable to store the authentication token.</li>
+</ul>
+<h2 id="functions">Functions</h2>
+<h3 id="authenticate"><code>authenticate()</code></h3>
+<ul>
+<li><strong>Description</strong>: Authenticates with Sentinel Hub and retrieves an authentication token.</li>
+<li><strong>Returns</strong>: A promise that resolves to the authentication token.</li>
+</ul>
+<h3 id="dochecktokenrequest"><code>doCheckToken(request)</code></h3>
+<ul>
+<li><strong>Description</strong>: Checks the token expiration time and re-authenticates if the token is about to expire.</li>
+<li><strong>Parameters</strong>: <code>request</code> - The HTTP request object.</li>
+<li><strong>Returns</strong>: A promise that resolves when the token check and possible re-authentication are complete.</li>
+<li><strong>Details</strong>: </li>
+<li>Retrieves the token's expiration time.</li>
+<li>Logs the expiration time.</li>
+<li>Re-authenticates if the expiration time is less than or equal to 600 seconds.</li>
+</ul>
+<h3 id="checktokenrequest-response-next"><code>checkToken(request, response, next)</code></h3>
+<ul>
+<li><strong>Description</strong>: Middleware that checks the token and attaches it to the request object.</li>
+<li><strong>Parameters</strong>:</li>
+<li><code>request</code> - The HTTP request object.</li>
+<li><code>response</code> - The HTTP response object.</li>
+<li><code>next</code> - The next middleware function.</li>
+<li><strong>Returns</strong>: A promise that resolves when the middleware function completes.</li>
+<li><strong>Details</strong>: </li>
+<li>Calls <code>doCheckToken</code> to ensure the token is valid.</li>
+<li>Attaches the <code>doCheckToken</code> function and <code>authToken</code> to the request object.</li>
+<li>Calls <code>next</code> to pass control to the next middleware function.</li>
+</ul>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

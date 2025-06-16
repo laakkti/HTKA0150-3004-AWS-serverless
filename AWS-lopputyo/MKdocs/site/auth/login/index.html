@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>login - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Login", url: "#_top", children: [
+              {title: "Definition for serverless.yml", url: "#definition-for-serverlessyml" },
+              {title: "Endpoint", url: "#endpoint" },
+              {title: "Testing", url: "#testing" },
+          ]},
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<h2 id="login">Login</h2>
+<p>Returns the jsonwebtoken with user name if authentication is succesful.</p>
+<pre><code>user/
+└── login.js 
+</code></pre>
+<!-- ### Sequence diagram-->
+<div class="mermaid">sequenceDiagram
+    autonumber
+    participant Client
+    participant AWS as AWS: login
+    participant Cognito
+    activate AWS
+    Note left of AWS: .../user/login
+    Client-&gt;&gt;AWS: request (username, password)
+    alt Authentication Successful
+        AWS-&gt;&gt;Cognito: Validate user credentials
+        Cognito--&gt;&gt;AWS: Acknowledge validation
+        AWS--&gt;&gt;Client: Status 200 (Login success, TOKEN with username returned)
+    else Authentication Failed
+        AWS--&gt;&gt;Client: Status 500 (Login failed, invalid credentials)
+    end
+    deactivate AWS
+</div>
+<h3 id="definition-for-serverlessyml">Definition for serverless.yml</h3>
+<p><code>functions:</code></p>
+<pre><code>  loginUser:
+    handler: user/login.handler
+    events:
+      - httpApi:
+          path: /user/login
+          method: post
+</code></pre>
+<h3 id="endpoint">Endpoint</h3>
+<p>sls deploy returns endpoint for login</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint Url</th>
+<th>HTTP Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/login</td>
+<td>POST</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>email</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>password given when registered</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token</td>
+<td>jsonwebtoken</td>
+<td>is needed for requests to AWS</td>
+</tr>
+<tr>
+<td>firstname lastname</td>
+<td>string</td>
+<td>complete name of user</td>
+</tr>
+</tbody>
+</table>
+<p>If not valid authetication, message "Invalid username or password" is returned.</p>
+<h3 id="testing">Testing</h3>
+<pre><code>requests/
+└── user/
+    └── post_login.rest
+</code></pre>
+<pre><code>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/login
+Content-Type: application/json
+
+{
+  "email": "AA4598@student.jamk.fi",
+  "password": "topsecret"
+}
+</code></pre>
+<p><strong>On success</strong>
+<img alt="image 1" src="../../img2/login_test.png" style="display: block; margin: 0;" width="800"/></p>
+<p><strong>On failure</strong>
+<img alt="image 1" src="../../img2/login_test_error.png" style="display: block; margin: 0;" width="800"/></p>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

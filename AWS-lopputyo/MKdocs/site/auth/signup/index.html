@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>signup - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Signup", url: "#_top", children: [
+              {title: "Definition for serverless.yml", url: "#definition-for-serverlessyml" },
+              {title: "Endpoint", url: "#endpoint" },
+              {title: "Testing", url: "#testing" },
+          ]},
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<h2 id="signup">Signup</h2>
+<pre><code>user/
+└── signup.js 
+</code></pre>
+<!-- ### Sequence diagram-->
+<div class="mermaid">sequenceDiagram
+    autonumber
+    participant Client
+    participant AWS as AWS: signup
+    participant Cognito
+    activate AWS
+    Note left of AWS: .../user/signup
+    Client-&gt;&gt;AWS: request (user data)
+    alt Insertion Successful
+        AWS-&gt;&gt;Cognito: Insert user data
+        Cognito--&gt;&gt;AWS: Acknowledge insertion
+        AWS--&gt;&gt;Client: status 200 (Signup successful)
+    else Insertion Failed
+        AWS--&gt;&gt;Client: status 401 (Saignup failed, user exists)
+    end
+    deactivate AWS
+</div>
+<ol>
+<li>client requests for signup</li>
+<li>user data (name, email and password) is inserted into Cognito if email not already exists </li>
+<li>information of the successful is returned</li>
+<li>if insertion is successful status code 200 is returned to the client</li>
+<li>if insertion fails status code 500 is returned to the client</li>
+</ol>
+<h3 id="definition-for-serverlessyml">Definition for serverless.yml</h3>
+<p><code>functions:</code></p>
+<pre><code>  signupUser:
+    handler: user/signup.handler
+    events:
+      - httpApi:
+          path: /user/signup
+          method: post  
+</code></pre>
+<h3 id="endpoint">Endpoint</h3>
+<table>
+<thead>
+<tr>
+<th>Endpoint Url</th>
+<th>HTTP Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/signup</td>
+<td>POST</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>email of user</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>given secret password</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>name of user</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>statuscode</td>
+<td>number</td>
+<td>200 on success, 500 on failure</td>
+</tr>
+</tbody>
+</table>
+<h3 id="testing">Testing</h3>
+<pre><code>requests/
+└── user/
+    └── post_signup.rest
+</code></pre>
+<pre><code>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/signup
+Content-Type: application/json
+
+{
+  "email": "AA4598@student.jamk.fi",
+  "password": "topsecret",
+  "name": "Timo Laakkonen"  
+}
+</code></pre>
+<p><strong>On success</strong>
+<img alt="image 1" src="../../img2/signup_test.png" style="display: block; margin: 0;" width="800"/></p>
+<p><code>Amazon Cognito &gt; User pools &gt; serverless-auth-pool &gt; Users</code>
+<img alt="image 1" src="../../img2/users.png" style="display: block; margin: 0;" width="800"/></p>
+<p><strong>On failure</strong>
+<img alt="image 1" src="../../img2/signup_test_error.png" style="display: block; margin: 0;" width="800"/></p>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>validateGeojson. - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "validateGeoJson", url: "#_top", children: [
+              {title: "Definition for serverless.yml", url: "#definition-for-serverlessyml" },
+              {title: "Endpoint", url: "#endpoint" },
+              {title: "Testing", url: "#testing" },
+          ]},
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<p>pitääkä lisätä testeihin myös mutta tarttee 
+clientin koodin kautta jotenkin sorvata 
+pitäisköhän rewind laitaa myös serverille ja regex myös no JAA
+no silloin voiis rest-testin tehdä
+MUUTA löambdojen paluu arvot käyttämään headers ja bodyäöa tsekkaa onko harjoituksissa käytetty!!!!</p>
+<h2 id="validategeojson">validateGeoJson</h2>
+<p>Returns knowledge if given geoJson is valid or not.</p>
+<pre><code>NDVI/
+└── lambda/
+    └── validateGeojson.js
+</code></pre>
+<!-- ### Sequence diagram-->
+<div class="mermaid">sequenceDiagram
+    autonumber
+    participant Client
+    participant AWS as AWS: validateGeojson    
+    activate AWS
+    Note left of AWS: .../validategeojson
+    Client-&gt;&gt;AWS: 
+    alt Validation Successful        
+        AWS--&gt;&gt;Client: 200 validation ok
+    else Validation Failed
+        AWS--&gt;&gt;Client: 400 validation error
+    end
+    deactivate AWS
+</div>
+<h3 id="definition-for-serverlessyml">Definition for serverless.yml</h3>
+<p><code>functions:</code></p>
+<pre><code>  validateGeojson:
+    handler: NDVI/lambda/validateGeojson.handler
+    events:
+      - httpApi:
+          path: /validategeojson
+          method: post
+
+</code></pre>
+<h3 id="endpoint">Endpoint</h3>
+<p>sls deploy returns endpoint for login</p>
+<table>
+<thead>
+<tr>
+<th>Endpoint Url</th>
+<th>HTTP Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/validategeojson</td>
+<td>POST</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>geojson</td>
+<td>geoJSON</td>
+<td>Geometry of Area of Interest in geoJSON format</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Statuscode</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>number</td>
+<td>validation ok</td>
+</tr>
+<tr>
+<td>400</td>
+<td>number</td>
+<td>validation failed</td>
+</tr>
+</tbody>
+</table>
+<p>If not valid authetication, message "Invalid username or password" is returned.</p>
+<h3 id="testing">Testing</h3>
+<pre><code>requests/
+└── ndvi/
+    └── get_geojson_validation.rest
+</code></pre>
+<pre><code>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/validategeojson
+Content-Type: application/json
+
+{
+  "geojson": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [24.019017492777, 64.233073829478],
+        [24.019347556527, 64.232990313561],
+        [24.019615315522, 64.232919904435],
+        [24.020482755912, 64.233076168492],
+        [24.022361546928, 64.233414777739],
+        [24.022304933188, 64.233512300717],
+        [24.022162986048, 64.233683337832],
+        [24.020810232778, 64.233413298021],
+        [24.020072476793, 64.23327072941],
+        [24.019017492777, 64.233073829478]
+      ]
+    ]
+  }
+}
+</code></pre>
+<p><strong>On success</strong>
+<img alt="image 1" src="../../img2/geojson_validation_test.png" style="display: block; margin: 0;" width="800"/></p>
+<p><strong>On failure</strong>
+<img alt="image 1" src="../../img2/geojson_validation_test_error.png" style="display: block; margin: 0;" width="800"/></p>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

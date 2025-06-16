@@ -1,0 +1,95 @@
+# org: omatunnus
+service: aws-teht4-ws-apigw
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  environment:
+    CONNECTION_DB_TABLE: ${self:service}-connectionTable
+    AUTHTOKEN: 'jokusalainentunnus'
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+        - dynamodb:Scan
+        - dynamodb:Query
+      Resource:
+        - Fn::GetAtt: [ConnectionTable, Arn]
+    - Effect: Allow
+      Action:
+        - execute-api:ManageConnections
+      Resource:
+        - arn:aws:execute-api:*:*:**/@connections/*
+    
+functions:
+  connectHandler:
+    handler: handlers.connectHandler
+    events:
+      - websocket:
+          route: $connect
+          authorizer:
+            name: auth
+            identitySource:
+              - 'route.request.querystring.Auth'
+
+  auth:
+    handler: handlers.auth
+
+  enterroomHandler:
+    handler: handlers.enterroomHandler
+    events:
+      - websocket:
+          route: enterroom
+
+  exitroomHandler:
+    handler: handlers.exitroomHandler
+    events:
+      - websocket:
+          route: exitroom
+
+  sendmessageHandler:
+    handler: handlers.sendmessageHandler
+    events:
+      - websocket:
+          route: sendmessage
+
+  disconnectHandler:
+    handler: handlers.disconnectHandler
+    events:
+      - websocket:
+          route: $disconnect
+
+  defaultHandler:
+    handler: handlers.defaultHandler
+    events:
+      - websocket:
+          route: $default
+
+  broadcastHandler:
+    handler: handlers.broadcastHandler
+    events:
+      - websocket:
+          route: broadcast
+
+resources:
+  Resources:
+    ConnectionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: roomId  # partition key
+            AttributeType: S
+          - AttributeName: connectionId # sort key
+            AttributeType: S
+        KeySchema:
+          - AttributeName: roomId
+            KeyType: HASH
+          - AttributeName: connectionId
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:service}-connectionTable
+

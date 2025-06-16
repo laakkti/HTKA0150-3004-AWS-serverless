@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>GetImage - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "NDVI Image Fetching Module", url: "#_top", children: [
+          ]},
+          {title: "Imports", url: "#imports", children: [
+          ]},
+          {title: "Helper Functions", url: "#helper-functions", children: [
+              {title: "addOneDay(date)", url: "#addonedaydate" },
+              {title: "getWidthAndHeight(geometry)", url: "#getwidthandheightgeometry" },
+          ]},
+          {title: "Main Function", url: "#main-function", children: [
+              {title: "getImage(date, geometry)", url: "#getimagedate-geometry" },
+          ]},
+          {title: "Export", url: "#export", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h4 id="getimagejs">getImage.js</h4>
+<h3 id="ndvi-image-fetching-module">NDVI Image Fetching Module</h3>
+<p>This JavaScript module fetches NDVI (Normalized Difference Vegetation Index) images from Sentinel Hub based on a given date and geometry. Below is a summary of the key components and functionality.</p>
+<h2 id="imports">Imports</h2>
+<ul>
+<li><strong>sentinelHub</strong>: A library for interacting with Sentinel Hub's API.</li>
+<li><strong>calculateDim</strong>: A custom utility module for calculating image dimensions.</li>
+<li><strong>get_bounding_box</strong>: A function from the <code>@turf/bbox</code> package to get the bounding box of a geometry.</li>
+</ul>
+<h2 id="helper-functions">Helper Functions</h2>
+<h3 id="addonedaydate"><code>addOneDay(date)</code></h3>
+<ul>
+<li><strong>Description</strong>: Takes a date object and returns a string representing the next day in ISO format.</li>
+<li><strong>Parameters</strong>: <code>date</code> - The input date.</li>
+<li><strong>Returns</strong>: A string representing the date of the next day.</li>
+</ul>
+<h3 id="getwidthandheightgeometry"><code>getWidthAndHeight(geometry)</code></h3>
+<ul>
+<li><strong>Description</strong>: Calculates the width and height for an image based on a provided geometry.</li>
+<li><strong>Parameters</strong>: <code>geometry</code> - The geometry object.</li>
+<li><strong>Returns</strong>: An object containing the width and height for the image.</li>
+</ul>
+<h2 id="main-function">Main Function</h2>
+<h3 id="getimagedate-geometry"><code>getImage(date, geometry)</code></h3>
+<ul>
+<li><strong>Description</strong>: Fetches an NDVI image for a specific date and geometry.</li>
+<li><strong>Parameters</strong>: </li>
+<li><code>date</code> - The date of the image.</li>
+<li><code>geometry</code> - The geometry object.</li>
+<li><strong>Returns</strong>: The NDVI image response.</li>
+<li><strong>Details</strong>:</li>
+<li><strong>Evalscript</strong>: Defines how to calculate NDVI and visualize it with specific color mappings based on the NDVI value.</li>
+<li><strong>Layer Setup</strong>: Configures a Sentinel-2 Layer with the evalscript and a cloud cover limit.</li>
+<li><strong>Image Dimensions</strong>: Uses <code>getWidthAndHeight</code> to determine the image's width and height.</li>
+<li><strong>Bounding Box</strong>: Computes the bounding box for the provided geometry.</li>
+<li><strong>Map Parameters</strong>: Sets parameters for the map request, including time range (from the given date to the next day), resolution (10m), and image dimensions.</li>
+<li><strong>Fetch Image</strong>: Attempts to fetch the NDVI image using the specified layer and parameters. Logs an error if the fetch fails.</li>
+</ul>
+<h2 id="export">Export</h2>
+<ul>
+<li>The module exports the <code>getImage</code> function, making it available for other parts of the application to use.</li>
+</ul>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

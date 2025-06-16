@@ -1,0 +1,16 @@
+POST https://lj9dq4eo0m.execute-api.eu-north-1.amazonaws.com/student/add
+Content-Type: application/json
+Authorization: eyJraWQiOiJJQllvRVVBQmlCT3h1Y1NJZGFET3JNZzNmd0NlSjEzNlFuTzMyXC9EOFVLQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3MGJjZjk1Yy0zMDIxLTcwZDktYThlZS00MDRlMjU4ZTc4MzgiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLmV1LW5vcnRoLTEuYW1hem9uYXdzLmNvbVwvZXUtbm9ydGgtMV9HbFNVVDVCTDEiLCJjb2duaXRvOnVzZXJuYW1lIjoiQUE0NTk4QHN0dWRlbnQuamFtay5maSIsIm9yaWdpbl9qdGkiOiJiOGZjMTMzMS1jZTk5LTQ1YjUtOTE0Mi0yODQ4NDVlZDc2MjMiLCJhdWQiOiI2cGtlZ3Fka2F1djhhZG42dXI3bGNkYTRocyIsImV2ZW50X2lkIjoiY2M0NmUxNjQtNzgxZi00OWUwLTk1YzUtYjU3NmFhMjg1ZDYxIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE3NDk2ODg4MjgsImV4cCI6MTc0OTcwNjgyOCwiaWF0IjoxNzQ5Njg4ODI4LCJqdGkiOiIxZmEwZmZmOS02Mjc5LTQ5MzctYTg3ZC1jMjU4ZGIzYTYwZjgiLCJlbWFpbCI6IkFBNDU5OEBzdHVkZW50LmphbWsuZmkifQ.kq2puijUNIHogKfwGfEwMbs9o5IJtBouv3S3RRRUjENaZufcB6WBXhGpZ-csyIEQpyoaSMxCjLCChkuvs-27QcwLO_KRO_gOHsIrrlOi92UW-Vub36dDjPXh9NLjGDNrL7CGyv5pdIWAxSk7EcnxL9h9NfuypLmwljIBKOzPVqq3UvG_U2u3ycMUYGWcQ4FXOBmjWcl2EkLzyBgZ8BCVHr4O__iHIVxIrCCahOiUU1VxheRsqxPYCo79sji1BA7twLfax3-D_UFnPIllUQSi2SFDnyH3etWQqPtW3eFjWkR6CalIKwlys46NJpegB9eZyDyLZvVbvKalf9NLTsjbKQ
+
+{
+  "studentcode": "t1234",
+  "studentname": "Testi Opiskelija",
+  "email": "t1234@jamk.fi",
+  "studypoints": 0,
+  "grades": [
+    {
+      "coursecode": "HTS10600",
+      "grade": 0
+    }
+  ]
+}

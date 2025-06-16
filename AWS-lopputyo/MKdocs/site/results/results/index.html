@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>sometimes setting yhe page size not working as expected, have to be fixed later - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "sometimes setting yhe page size not working as expected, have to be fixed later", url: "#_top", children: [
+              {title: "TypeScript", url: "#typescript" },
+              {title: "Redux or Context for global variables", url: "#redux-or-context-for-global-variables" },
+              {title: "Local storage/ Token", url: "#local-storage-token" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h1 id="sometimes-setting-yhe-page-size-not-working-as-expected-have-to-be-fixed-later">sometimes setting yhe page size not working as expected, have to be fixed later</h1>
+<p>timing issue for useState variables
+it happens when new data is available from sentinel-hub service.</p>
+<h4 id="best-practices">Best practices</h4>
+<p>dynamic code not hard codes except couple of situation
+I have kept in mind reusability, maintainability and further developability for elemets and components.</p>
+<h3 id="typescript">TypeScript</h3>
+<p>It would be not bad idea to use Typescript instead of Javascript</p>
+<h3 id="redux-or-context-for-global-variables">Redux or Context for global variables</h3>
+<p>For reporting and documenting</p>
+<h4 id="jsdoc">JsDoc</h4>
+<p>https://medium.com/@martink_rsa/js-docs-a-quickstart-guide-da6ce5df4a73./node_modules/jsdoc/jsdoc.js./src/services/user-service.js </br></p>
+<p>Vois olla imagesa date kenttä ja uuid!!!!</p>
+<p>At this point top level navbar is in app level not own component because of straigtforwared in developing not need deliver parameters and use callbacks. Ofcourse it would be nicer have it own component packet.</p>
+<p>Documenting afterwards is peretty challengingh and not very motivating.</p>
+<p>So I used AI to help for JsDoc  All the code and the documentation has been checked out with modifications,  and after that proved to be correct so why not use help of AI.</p>
+<p>UI/UX
+should fdefine breakpoisnt and or grid system of bootsrap to fit and postionin elemenst for different size of   viewports.
+it's pretty challengin to make dynamic user interface.
+should focus more in the future</p>
+<h5 id="state-management">state management</h5>
+<p>It was near to use another state management but usestate, Context Redux...</p>
+<p>liää graafiin valinta min, max, mean, std standard deviation
+mahdollisesti kaikki samaan graafiin mjutta tuleeko pylväsdiagramiissa ongelmia</p>
+<h2 id="local-storage-token">Local storage/ Token</h2>
+<p>Could be stored in the local storage and give expiration time
+saving the login details to local storage. Local Storage is a key-value database in the browser.
+Values in the local storage are persisted even when the page is re-rendered.</p>
+<p>talletetaan token storageen, määritetään expiration time
+mutta kuinka tuo storage hoidetaan eli ei tarvii kirjautua joka kerta kun browseriin syötetän url
+mutta kun token menee vanhaksi niin kuinka tsekataan ja kuinka uusitaan olisiko näin että kun ei käytetän niin menee vanhaksi tietyn ajan jälkeen muuten on eloissa ja uusitaan aina kun tehdään kutsu tai tietyin aikavälein????</p>
+<h3 id="from-the-start">From the start</h3>
+<p>I started with Python, because the main API-documentation for sentinel-hub is for Python.
+There is examples of use IPythonwhich is handy Jupyter notebook<br />
+But choide was usse of Javascript with node. 
+Afterwards I would choose using sentinnel-hub with python as an node subprocess with spawn library.
+Why python is jsut more convonient and more supported, it also have real multithreading and parallel concurrent
+there is libraries for multiprosessing and threading stuff.
+which actaully needed when the database is emåyt and concurrent request for data from long time range with multiple aois.
+and for the future challenge with artificial intelligense python is the best choice. apawn sub-process</p>
+<h3 id="for-code-javascript-standard-style">for code JavaScript Standard Style</h3>
+<p><a href="https://standardjs.com/" target="_blank">https://standardjs.com//</a></p>
+<h3 id="naming-policy">naming policy</h3>
+<h3 id="in-general">In general</h3>
+<p>I have tried to follow the principles and best practices of dynamism, reusability, maintainability, further developability
+I think I did pretty well.</p>
+<h3 id="about-documenting">About documenting</h3>
+<p>To be honest the documentation was propably the most challenging part of this process, hope learned something and 
+get it to routine level with suitable tools and methods. Which poin of view to the documentation...</p>
+<h3 id="ai">AI</h3>
+<p>I use chatGbt, Geninim and Copilot for some routines
+impressive how Ai can JSdoc style commented only some corrections and fixes qualifies
+the methods parametres and return values</p>
+<p>has been very helpful commented afterwards</p>
+<p>ok this kind of code is not a rocket science</p>
+<p>not big problems, bussiness as usual with the problems</p>
+<h3 id="feelings">Feelings</h3>
+<p>this was a good learning process... the trip is more impoerant that the goal, this assignment with MERN-stack adds more self confidence in the future
+boosted/strengthened self-confidence</p>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

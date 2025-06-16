@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Evalscript - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "The Evalscript", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h3 id="the-evalscript">The Evalscript</h3>
+<p>Evalscripts are a piece of Javascript code, used to visualise satellite imagery and to control what values the Sentinel Hub services will return.</p>
+<p>Evalscript, there is three functions:</p>
+<p>In function setup()we specify the required (Sentinel-2) bands as inputs and also specify the output responses with individually assigned ids. We can further customise the number of bands and the raster sampleType of each output response to your requirements. We also specify the mosaicking method Orbit. This means you are requesting the flattened mosaicked image for each orbit so that there is only one sample per pixel per orbit.</p>
+<p>With the help of preProcessScenes, we allow only data from the two defined dates to be used, and the Orbit mosaicking method is used to mosaic the two scenes that cover the AOI into a single pixel array.</p>
+<p>The third function is where pixel analysis takes place; computing NDVI for both scenes and BSI for the second scene. Lastly, the harvested formula is applied to the two indices you generated.</p>
+<p>Advanced evalscripts can be complicated, and what we explain above with all the functions, may not make sense if you are not familiar with them. We invite you to learn all about scripting with Sentinel Hub, starting with tutorials for anyone, including those not familiar with coding or remote sensing</p>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

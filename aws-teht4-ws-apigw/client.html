@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat Sample</title>
+  </head>
+  <body>
+    <h1>Chat Sample</h1>
+    <div>
+      <label for="userNameInput">User Name </label
+      ><input type="text" id="userNameInput" />
+      <label for="roomIdInput">Room ID </label
+      ><input type="text" id="roomIdInput" />
+      <input type="button" value="Enter" id="enterRoomButton" />
+      <input type="button" value="Exit" id="exitRoomButton" />
+    </div>
+    <div>
+      <label for="messageInput">Message </label
+      ><input type="text" id="messageInput" />
+      <input type="button" value="Send" id="sendButton" />
+    </div>
+
+    <hr />
+
+    <p id="output"></p>
+
+    <script>
+      const uri =
+        "wss://7rxg2kyh1l.execute-api.eu-north-1.amazonaws.com/dev?Auth=jokusalainentunnus";
+      let ws = null;
+
+      const userNameInput = document.getElementById("userNameInput");
+      const roomIdInput = document.getElementById("roomIdInput");
+      const enterRoomButton = document.getElementById("enterRoomButton");
+      const exitRoomButton = document.getElementById("exitRoomButton");
+
+      let userName = "";
+      let roomId = "";
+
+      exitRoomButton.disabled = true;
+
+      const messageInput = document.getElementById("messageInput");
+      const sendButton = document.getElementById("sendButton");
+
+      messageInput.disabled = true;
+      sendButton.disabled = true;
+
+      const output = document.getElementById("output");
+
+      function write(msg) {
+        output.innerHTML += msg + "<br>";
+      }
+
+      function log(msg) {
+        output.innerHTML += "<font color=gray>" + msg + "</font><br>";
+      }
+
+      function isWebSocketOpen(ws) {
+        return ws.readyState === WebSocket.OPEN;
+      }
+
+      function enterRoom() {
+        console.log("xxxx ENTER",isWebSocketOpen(ws));
+
+        ws.send(`{ "action": "enterroom", "data": "${roomId}"}`);
+      }
+
+      function exitRoom() {
+        console.log("xxxx EXIT");
+        ws.send(`{ "action": "exitroom", "data": "${roomId}"}`);
+      }
+
+      function send(msg) {
+        console.log("xxxx SEND");
+        const str = `${userName} (${roomId}): ${encodeURI(msg)}`;
+        ws.send(`{ "action": "sendmessage", "data":"${str}"}`);
+      }
+
+      // sleep
+      // ref. https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      enterRoomButton.onclick = () => {
+        userName = userNameInput.value;
+        roomId = roomIdInput.value;
+
+        if (userName === "") {
+          alert("Please set a username.");
+          return;
+        }
+
+        if (roomId === "") {
+          alert("Please set the room ID.");
+          return;
+        }
+
+        enterRoomButton.disabled = true;
+
+        ws = new WebSocket(uri);
+
+        ws.onopen = async (e) => {
+          log("Connected");          
+          console.log("xxxx OPEN -> enter");
+          enterRoom();
+          await sleep(1000);
+          send("[Entered]");
+          //*****************************
+          //send("[Enteredxxxxxx]");
+          //*****************************
+
+          userNameInput.disabled = true;
+          roomIdInput.disabled = true;
+          exitRoomButton.disabled = false;
+          messageInput.disabled = false;
+          sendButton.disabled = false;
+        };
+
+        ws.onmessage = (e) => {
+          console.log("xxxx MESSAGE");
+          write(decodeURI(e.data));
+        };
+
+        ws.onclose = (e) => {
+          log("Disconnected");
+
+          //*****************
+          console.log(
+            "xxxx CLOSE -> MIKSEI kutsuta täällä exitRoom vaan buttonClickissä"
+          );
+          ws = null;
+          //*****************
+          userNameInput.disabled = false;
+          roomIdInput.disabled = false;
+          enterRoomButton.disabled = false;
+          messageInput.disabled = true;
+          sendButton.disabled = true;
+        };
+
+        ws.onerror = function (e) {
+          log("Error: " + e.data);
+        };
+      };
+
+      exitRoomButton.onclick = async () => {
+        exitRoomButton.disabled = true;
+        send("[Exited]");
+        await sleep(1000);
+        exitRoom();
+        ws.close();
+      };
+
+      sendButton.onclick = () => {
+        const msg = messageInput.value;
+
+        if (msg === "") {
+          alert("Please enter a message.");
+          return;
+        }
+
+        send(msg);
+
+        messageInput.value = "";
+      };
+
+      /* 
+Jos asiakas sulkee selaimen ja exitroom-nappia ei ole painettu,
+niin alla oleva metodi poistaa tiedot kannasta ja sulkee
+socket-yhteyden, samalla kun selain sulkeutuu.
+*/
+      window.onbeforeunload = () => {
+        if (exitRoomButton.disabled === false) {
+          exitRoom();
+          ws.close();
+        }
+      };
+    </script>
+  </body>
+</html>

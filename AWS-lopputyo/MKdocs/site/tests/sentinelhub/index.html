@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>sentinelhub - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Token", url: "#_top", children: [
+          ]},
+          {title: "Statistics", url: "#statistics", children: [
+          ]},
+          {title: "Image", url: "#image", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h2 id="token">Token</h2>
+<pre><code>requests/
+└── sentinelhub/
+    └── get_sentinelhub_token.rest
+</code></pre>
+<p><code>functions:</code></p>
+<pre><code>get_sentinelhub_token:
+    handler: sentinelhub/lambda/get_token.handler
+    events:
+    - httpApi:
+        path: /sentinelhub/get_token
+        method: post
+</code></pre>
+<pre><code>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_token
+</code></pre>
+<p><strong>On success</strong>
+<img src="../../img2/sentinelhub_token_test.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<h2 id="statistics">Statistics</h2>
+<pre><code>requests/
+└── sentinelhub/
+    └── get_statistics.rest
+</code></pre>
+<p><code>functions:</code></p>
+<pre><code>get_sentinelhub_statistics:
+    handler: sentinelhub/lambda/get_statistics.handler
+    timeout: 60
+    events:
+      - httpApi:
+          path: /sentinelhub/get_statistics
+          method: post
+</code></pre>
+<pre><code>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_statistics
+Content-Type: application/json
+
+{
+    &quot;start_date&quot;:&quot;2024-04-01T00:00:00Z&quot;,
+    &quot;end_date&quot;:&quot;2024-10-01T00:00:00Z&quot;,
+    &quot;geometry&quot;: {
+    &quot;type&quot;: &quot;Polygon&quot;,
+    &quot;coordinates&quot;: [
+      [
+        [
+          24.019017492777,
+          64.233073829478
+        ],
+        [
+          24.019347556527,
+          64.232990313561
+        ],
+        [
+          24.019615315522,
+          64.232919904435
+        ],
+        [
+          24.020482755912,
+          64.233076168492
+        ],
+        [
+          24.022361546928,
+          64.233414777739
+        ],
+        [
+          24.022304933188,
+          64.233512300717
+        ],
+        [
+          24.022162986048,
+          64.233683337832
+        ],
+        [
+          24.020810232778,
+          64.233413298021
+        ],
+        [
+          24.020072476793,
+          64.23327072941
+        ],
+        [
+          24.019017492777,
+          64.233073829478
+        ]
+      ]
+    ]
+  }
+}
+</code></pre>
+<p><strong>On success</strong>
+<img src="../../img2/sentinelhub_statistics_test.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<h2 id="image">Image</h2>
+<p>Getting processed NDVI image for specifig day from sentinelhub</p>
+<pre><code>requests/
+└── sentinelhub/
+    └── get_image.rest
+</code></pre>
+<p><code>functions:</code></p>
+<pre><code>get_sentinelhub_image:
+    handler: sentinelhub/lambda/get_image.handler
+    timeout: 30
+    events:
+      - httpApi:
+          path: /sentinelhub/getimage
+          method: post
+</code></pre>
+<p>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/getimage
+Content-Type: application/json</p>
+<p>{
+    "start_date":"2024-04-19T00:00:00Z",  <br />
+    "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          24.019017492777,
+          64.233073829478
+        ],
+        [
+          24.019347556527,
+          64.232990313561
+        ],
+        [
+          24.019615315522,
+          64.232919904435
+        ],
+        [
+          24.020482755912,
+          64.233076168492
+        ],
+        [
+          24.022361546928,
+          64.233414777739
+        ],
+        [
+          24.022304933188,
+          64.233512300717
+        ],
+        [
+          24.022162986048,
+          64.233683337832
+        ],
+        [
+          24.020810232778,
+          64.233413298021
+        ],
+        [
+          24.020072476793,
+          64.23327072941
+        ],
+        [
+          24.019017492777,
+          64.233073829478
+        ]
+      ]
+    ]
+  }
+}</p>
+<p><strong>On success</strong>
+<img src="../../img2/sentinelhub_image_test.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>dates - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "connect", url: "#_top", children: [
+          ]},
+          {title: "getNdviDates", url: "#getndvidates", children: [
+          ]},
+          {title: "SentinelHub token-based authentication", url: "#sentinelhub-token-based-authentication", children: [
+          ]},
+          {title: "Code locations", url: "#code-locations", children: [
+          ]},
+          {title: "Definition for serverless.yml", url: "#definition-for-serverlessyml", children: [
+          ]},
+          {title: "Request", url: "#request", children: [
+          ]},
+          {title: "Response", url: "#response", children: [
+          ]},
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<p>This connection is websocket connection. While getting data the situation/phases of the process is sent by websocket</p>
+<p>Retrieves/returns a list of Sentinel-hub NDVI dates with statistics and updates the database if new data is available.</p>
+<p>List the days with found images for the given geometry found in Sentinel Hub. Service should store the given geometry and the days in which the images can be found so that there would be no need to re-query the days (only newer days from the last query should be queried) every time from Sentinel Hub. If the image is available for given day then the service should assign unique id "sentinelid" for that day and image.</p>
+<h2 id="connect">connect</h2>
+<div class="mermaid">sequenceDiagram
+    Autonumber
+    participant Client
+    participant AWS as AWS: connect.handler    
+
+    activate AWS
+    Note left of AWS: wss://w2iuklgym6.execute-api.eu-north-1.amazonaws.com/dev?token
+    Client-&gt;&gt; AWS: #connect.handler (token in querystring)
+    AWS -&gt;&gt; AWS: checkToken
+
+    alt Token valid        
+        AWS--&gt;&gt;Client: 200 connected
+    #    Note right of AWS: connected
+    else Token not valid
+
+        AWS--&gt;&gt;Client: 403 forbidden 
+    #    Note right of AWS: not connected
+    end
+    deactivate AWS
+
+</div>
+<h2 id="getndvidates">getNdviDates</h2>
+<div class="mermaid">sequenceDiagram
+    Autonumber
+    participant Client
+    participant AWS as AWS: getNdviDates.handler
+    participant MongoDB
+    participant SentinelHub
+
+    activate AWS
+    #Note left of AWS: wss://w2iuklgym6.execute-api.eu-north-1.amazonaws.com/dev?token
+    Client-&gt;&gt; AWS: socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));  
+    AWS-&gt;&gt; MongoDB: Query
+    MongoDB--&gt;&gt; AWS: Data
+
+    alt Data found in MongoDB
+        alt Current date is newer than last date in list for specific geometry (AOI)
+            AWS-&gt;&gt;SentinelHub: Request new data
+            SentinelHub--&gt;&gt;AWS: Response (New data)
+            AWS-&gt;&gt;MongoDB: Store new data
+            AWS-&gt;&gt;MongoDB: Query by geoJSON
+            MongoDB--&gt;&gt;AWS: Data
+        end
+        AWS--&gt;&gt;Client: Response array of dates
+        Note right of AWS: Data found in MongoDB
+    else Data not found in MongoDB
+        AWS-&gt;&gt;SentinelHub: Request
+        SentinelHub--&gt;&gt;AWS: Response (Data not found in MongoDB)
+        AWS-&gt;&gt;MongoDB: Store Data
+        AWS-&gt;&gt;MongoDB: Query
+        MongoDB--&gt;&gt;AWS: Data
+        AWS--&gt;&gt;Client: Response array of dates
+        Note right of AWS: Data not found in MongoDB
+    end
+    deactivate AWS
+
+</div>
+<p>if new data (statistics) is available it will be stored into the database. Also NDVI-imagedata related to all new dates will be request from SentinelHub</p>
+<div class="mermaid">sequenceDiagram
+    Autonumber
+    participant AWS as AWS: getNdviDates.handler
+    participant SentinelHub
+    participant MongoDB
+
+    AWS-&gt;&gt;SentinelHub: Request new data    
+    SentinelHub--&gt;&gt;AWS: Response (new data)
+    AWS-&gt;&gt;MongoDB: Store new data
+
+    loop Request image data
+        AWS-&gt;&gt;SentinelHub: Request image data (for each new data item)
+        SentinelHub--&gt;&gt;AWS: Response (image data)
+        AWS-&gt;&gt;MongoDB: Store image data with statistics
+    end
+</div>
+<h2 id="sentinelhub-token-based-authentication">SentinelHub token-based authentication</h2>
+<p>For use of sentinelHub-service needs autentication token</p>
+<p>sentinekhub token pitää ottaa talteen sillä sitä ei voida kysellä joka requestin yhteydessä not allowed for...
+TÄMÄ LIITTYY dates websocket kohtaan SIIRRÄÄ sinne!!! koska siellä vain ollaan yhteydessä sentinelhubiin!!!!</p>
+<div class="mermaid">sequenceDiagram
+    participant Client as AWS:getNdviDates.handler
+    participant AuthFunction as sentinelhub_authentication
+    participant SSM as AWS:SSM
+    participant Check as checkToken
+    participant SHub as SentinelHub
+
+    Client-&gt;&gt;AuthFunction: Invoke sentinelhub_authentication()
+    AuthFunction-&gt;&gt;SSM: getParameter("sentinelhub_token")
+    alt Token exists
+        SSM--&gt;&gt;AuthFunction: Return token
+        AuthFunction-&gt;&gt;Check: checkToken(token)
+        Check--&gt;&gt;AuthFunction: Return expiration time
+        alt Token expiring soon (&lt;= 600s)
+            AuthFunction-&gt;&gt;SHub: authenticate(client_id, client_secret)
+            SHub--&gt;&gt;AuthFunction: Return newToken
+            AuthFunction-&gt;&gt;SSM: putParameter("sentinelhub_token", newToken)
+        end
+    else Token not found
+        AuthFunction-&gt;&gt;SHub: authenticate(client_id, client_secret)
+        SHub--&gt;&gt;AuthFunction: Return newToken
+        AuthFunction-&gt;&gt;SSM: putParameter("sentinelhub_token", newToken)
+    end
+    AuthFunction--&gt;&gt;Client: Return valid token
+</div>
+<p>Tämä kokonaisuudessaan tekee muutakin kuin vain palauttaa tiedot, hakeee sentinelistä ja tallentaa tietokantaan niin ei tarvitse jatkossa enää hakea ja käyttää sentnelhubin process ja request units.</p>
+<h2 id="code-locations">Code locations</h2>
+<pre><code>websocket/
+├── connect.js
+├── disconnect.js 
+└── getNdviDates.js
+</code></pre>
+<h2 id="definition-for-serverlessyml">Definition for serverless.yml</h2>
+<p><code>functions:</code></p>
+<pre><code>  connect:
+    handler: websocket/connect.handler
+    events:
+      - websocket:
+          route: $connect
+  disconnect:
+    handler: websocket/disconnect.handler
+    events:
+      - websocket:
+          route: $disconnect
+  getNdviDates:
+    handler: websocket/getNdviDates.handler
+    timeout: 240
+    events:
+      - websocket:
+          route: getNdviDates
+</code></pre>
+<p>timeout is most important, depending of the size of the aoi (area of interenst) geometry, depending on timerange and traffic enough time is needed for the process.</p>
+<h6 id="tama-lahetetaan-fronendista-ja-funktio-on-getndvi">############################### tämä lähetetään fronendistä ja funktio on getNdvi...</h6>
+<p>on client</p>
+<p>const geoData = {
+    start_date: startDate,
+    end_date: endDate,
+    geometry: geoJson,
+  };
+socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));</p>
+<h6 id="_1"></h6>
+<table>
+<thead>
+<tr>
+<th>Endpoint Url</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wss://w2iuklgym6.execute-api.eu-north-1.amazonaws.com/dev</td>
+</tr>
+</tbody>
+</table>
+<h2 id="request"><strong>Request</strong></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>geometry</td>
+<td>geoJSON</td>
+<td>Geometry in geoJSON format, coordinate reference system WGS84 (EPSG:4326)</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>dateString (ISO 8601)</td>
+<td>The start date to include images from</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>dateString (ISO 8601)</td>
+<td>The end date to include images to</td>
+</tr>
+</tbody>
+</table>
+<pre><code>{   
+    "geometry": "geoJSON",
+    "start_date": "dateString",
+    "end_date": "dateString"
+}
+</code></pre>
+<h2 id="response"><strong>Response</strong></h2>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>array</td>
+<td>All the days from which images can be queried</td>
+</tr>
+<tr>
+<td>generationtime</td>
+<td>dateString (ISO 8601)</td>
+<td>The date of the image</td>
+</tr>
+<tr>
+<td>sentinelid</td>
+<td>string</td>
+<td>generationtime and geometry converted to sha256-format, generated for the request to be used when fetching the image from database e.g. 2023-05-30T00:00:00Z_c7a5478757abfae7286751b0950e58991fa3f6ef77f77e844baba038cb86b647</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-json">[
+  {
+    "generationtime": "2023-05-15T00:00:00Z",
+    "sentinelid": "2023-05-15T00:00:00Z_c7a5478757abfae7286751b0950e58991fa3f6ef77f77e844baba..."
+  },
+  {
+    "generationtime": "2023-05-30T00:00:00Z",
+    "sentinelid": "2023-05-30T00:00:00Z_c7a5478757abfae7286751b0950e58991fa3f6ef77f77e844baba..."
+  },
+  ...
+]
+</code></pre>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

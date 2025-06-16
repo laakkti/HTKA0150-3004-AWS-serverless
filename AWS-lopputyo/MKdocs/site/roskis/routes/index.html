@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>Routes - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "Backend", url: "#_top", children: [
+              {title: "resfFull plugin tee testi routeihin ilman ja tokenin kanssa!!!!", url: "#resffull-plugin-tee-testi-routeihin-ilman-ja-tokenin-kanssa" },
+              {title: "Routes", url: "#routes" },
+          ]},
+          {title: "user-routes", url: "#user-routes", children: [
+          ]},
+          {title: "Authentication / token", url: "#authentication-token", children: [
+              {title: "user-routes -\u0026gt; user-controllers", url: "#user-routes-user-controllers" },
+              {title: "user-controllers", url: "#user-controllers" },
+          ]},
+          {title: "ndvi-routes", url: "#ndvi-routes", children: [
+              {title: "list", url: "#list" },
+              {title: "activate", url: "#activate" },
+              {title: "weather", url: "#weather" },
+              {title: "Aois", url: "#aois" },
+              {title: "Dev-routes", url: "#dev-routes" },
+              {title: "activate (keksi jokin muu nimi)", url: "#activate-keksi-jokin-muu-nimi" },
+          ]},
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<p>developing route otetaan mukaan vain develop modessa
+priction modessa ko. route ei tule mukaan</p>
+<h1 id="backend">Backend</h1>
+<p>NDVI-controller
+ - list
+ - activate
+ - image</p>
+<p>Develop
+ -  database... 
+Erikseen on develop-route sisältäen demon datan sekä joitakin mm. database maintrenece tools</p>
+<p>Weather
+- tässä tapuksessa haetaan valitun paikkakunnan säädataa vaikka joka päivältä mitä on ollut
+- voisi näkyä ko. paikkakunnan sää joka on parhaillaan (jokin päivitys cronilla) frontille ie vitisyksiä
+  kaikki menee backendin kautta</p>
+<p>Monitoring SOCKET <br/>
+- päivityksen monitotointi  </p>
+<hr/>
+<h2 id="resffull-plugin-tee-testi-routeihin-ilman-ja-tokenin-kanssa">resfFull plugin tee testi routeihin ilman ja tokenin kanssa!!!!</h2>
+<h2 id="routes">Routes</h2>
+<h3 id="aois-to-mongodb-puuttuu">AOIs to MongoDB puuttuu</h3>
+<pre><code>Routes
+├── user-routes
+│   ├── register
+│   └── login
+│
+├── ndvi-routes
+│   ├── list
+│   ├── image
+│   ├── weather
+│   ├── activate
+│   └── aois
+│
+└── dev-routes
+    └── (multiple actions)
+</code></pre>
+<h3 id="jotenkin-pitaisi-kuvata-kuinka-koodillisesti-rakenne">Jotenkin pitäisi kuvata kuinka "koodillisesti" rakenne</h3>
+<h1 id="user-routes">user-routes</h1>
+<ul>
+<li><a href="register.md">Register</a></li>
+</ul>
+<h1 id="authentication-token">Authentication / token</h1>
+<p>use of all the routes need authentocation made from frontend app
+to route named user to get token which is needed for use of services.</p>
+<p>so token is needed and some route needs administrator privileges.</p>
+<h2 id="user-routes-user-controllers">user-routes -&gt; user-controllers</h2>
+<p>router.post('/login', usersControllers.login);
+router.post('/register', usersControllers.register);</p>
+<h2 id="user-controllers">user-controllers</h2>
+<p>const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')</p>
+<ul>
+<li>register</li>
+<li>login</li>
+</ul>
+<h3 id="register">register</h3>
+<div class="mermaid">sequenceDiagram
+    autonumber
+    participant Client
+    participant Server
+    participant MongoDb
+
+    Client-&gt;&gt;Server: POST /ndvi/api/v1/register
+    alt Insertion Successful
+        Server-&gt;&gt;MongoDb: Insert user data
+        MongoDb--&gt;&gt;Server: Acknowledge insertion
+        Server--&gt;&gt;Client: Status 200 (Registration successful)
+    else Insertion Failed
+        Server--&gt;&gt;Client: Status 401 (Registration failed, user exists)
+    end
+</div>
+<p>taking in action on App.js</p>
+<p>const userRouter = require("./routes/user-routes");
+app.use("/ndvi/api/v1",userRouter);</p>
+<p>calling to 
+../ndvi/api/v1/register
+- parameters
+  firstname, lastname, email, password</p>
+<p>if exists return xxxx
+if not exists -&gt; sace
+- return saved 200</p>
+<p>returns if succees (Teemun jutusta mallia) mitä parmaetriksi eli kuinka kutsutaan ja pitä palauttaa</p>
+<ul>
+<li><a href="login.md">Login</a></li>
+</ul>
+<h1 id="ndvi-routes">ndvi-routes</h1>
+<h3 id="list">list</h3>
+<h3 id="activate">activate</h3>
+<h3 id="weather">weather</h3>
+<h2 id="aois">Aois</h2>
+<h2 id="dev-routes">Dev-routes</h2>
+<h3 id="list_1">list</h3>
+<p>sentinelhub token </p>
+<h2 id="activate-keksi-jokin-muu-nimi">activate (keksi jokin muu nimi)</h2>
+<p>vaatii admin oikeudet. 
+ehtona</p>
+<p>developing route otetaan mukaan vain develop modessa
+priction modessa ko. route ei tule mukaan</p>
+<p>NDVI-controller
+ - list
+ - activate
+ - image</p>
+<p>Develop
+ -  database... 
+Erikseen on develop-route sisältäen demon datan sekä joitakin mm. database maintrenece tools</p>
+<p>Weather
+- tässä tapuksessa haetaan valitun paikkakunnan säädataa vaikka joka päivältä mitä on ollut
+- voisi näkyä ko. paikkakunnan sää joka on parhaillaan (jokin päivitys cronilla) frontille ie vitisyksiä
+  kaikki menee backendin kautta</p>
+<p>Monitoring SOCKET <br/>
+- päivityksen monitotointi  </p>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

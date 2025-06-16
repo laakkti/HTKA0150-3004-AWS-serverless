@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Client example - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "using the demo/example client app for the AWS-serverless", url: "#_top", children: [
+              {title: "overview", url: "#overview" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h2 id="using-the-demoexample-client-app-for-the-aws-serverless">using the demo/example client app for the AWS-serverless</h2>
+<h3 id="overview">overview</h3>
+<p>TARINAA TÄHÄN DOC/readme.md ja ytsp0300-3004</p>
+<p><img src="../../img2/frontend/start.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/about.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/signup.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/login.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/geojson_validation.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/geojson_validation_error.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/geojson_validation_ok.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/prosessing.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/gettingimages.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_bar.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_stat.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_onmap.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_onmap_full.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_onmap_full_zoomed.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_location.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_location_full.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_location_full_zoomed.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><img src="../../img2/frontend/showingdata_film.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p>At the app bar there is button geometry for add new geometry of area of interest.
+<img src="../../img2/frontend/geojson_validation.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p>kerro kontrolleista kuinka voidaan vaihtaa päivämäärä bar-view swipe film dropdown</p>
+<p>mainitse, että axios.all is used in parallel processing for the images from sentinelhub into mongoDb, jossakin toisessa yhteydessä mutta websocket info of the process käy tois nopeasti tässä tapauksessa.</p>
+<!--<video width="800" controls>
+  <source src="../../video/frontend/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>-->
+
+<p>At first time when there is not data in database it takeas a while for the process.
+When the data is already saved to the database, the data to the client is loaded very quickly. </p>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>user - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "signup", url: "#_top", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h2 id="signup">signup</h2>
+<pre><code>requests/
+└── user/
+    └── post_signup.rest
+</code></pre>
+<h4 id="serverlessyml">serverless.yml</h4>
+<p><code>functions:</code></p>
+<pre><code>  signupUser:
+    handler: user/signup.handler
+    events:
+      - httpApi:
+          path: /user/signup
+          method: post
+``
+
+
+</code></pre>
+<p>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/signup
+Content-Type: application/json</p>
+<p>{
+  "email": "AA4598@student.jamk.fi",
+  "password": "topsecret",
+  "name": "Timo Laakkonen"<br />
+}</p>
+<pre><code>**On success**
+&lt;img src=&quot;../../img2/signup_test.png&quot; alt=&quot;image 1&quot; width=&quot;800&quot; style=&quot;display: block; margin: 0;&quot;/&gt;
+
+```Amazon Cognito &gt; User pools &gt; serverless-auth-pool &gt; Users```
+&lt;img src=&quot;../../img2/users.png&quot; alt=&quot;image 1&quot; width=&quot;800&quot; style=&quot;display: block; margin: 0;&quot;/&gt;
+
+**On failure**
+&lt;img src=&quot;../../img2/signup_test_error.png&quot; alt=&quot;image 1&quot; width=&quot;800&quot; style=&quot;display: block; margin: 0;&quot;/&gt;
+
+
+</code></pre>
+<p>sls logs -f signupUser</p>
+<pre><code>
+&lt;img src=&quot;../../img2/signup_logs.png&quot; alt=&quot;image 1&quot; width=&quot;800&quot; style=&quot;display: block; margin: 0;&quot;/&gt;
+
+## login
+
+</code></pre>
+<p>requests/
+└── user/
+    └── post_login.rest</p>
+<pre><code>
+#### serverless.yml
+
+`functions:`
+</code></pre>
+<p>loginUser:
+    handler: user/login.handler
+    events:
+      - httpApi:
+          path: /user/login
+          method: post
+``</p>
+<pre><code>POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/login
+Content-Type: application/json
+
+{
+  &quot;email&quot;: &quot;AA4598@student.jamk.fi&quot;,
+  &quot;password&quot;: &quot;topsecret&quot;
+}
+</code></pre>
+<p><strong>On success</strong>
+<img src="../../img2/login_test.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+<p><strong>On failure</strong>
+<img src="../../img2/login_test_error.png" alt="image 1" width="800" style="display: block; margin: 0;"/></p>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

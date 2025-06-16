@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<title>Planning - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+<link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet"/>
+<link href="../../css/font-awesome-4.7.0.css" rel="stylesheet"/>
+<link href="../../css/base.css" rel="stylesheet"/>
+<link href="../../css/highlight.css" rel="stylesheet"/>
+<link href="../../style.css" rel="stylesheet"/>
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+<script src="../../js/jquery-3.2.1.min.js"></script>
+<script src="../../js/bootstrap-3.3.7.min.js"></script>
+<script src="../../js/highlight.pack.js"></script>
+<base target="_top"/>
+<script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "learning curve", url: "#_top", children: [
+          ]},
+          {title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", url: "#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", children: [
+              {title: "getting NDVI data, statistiscs and prosessing Imagedata", url: "#getting-ndvi-data-statistiscs-and-prosessing-imagedata" },
+              {title: "Store the data", url: "#store-the-data" },
+              {title: "Updating", url: "#updating" },
+          ]},
+          {title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", url: "#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_1", children: [
+          ]},
+          {title: "STATE variable handling", url: "#state-variable-handling", children: [
+              {title: "UI comments", url: "#ui-comments" },
+              {title: "n\u00e4yt\u00e4 kun client ottaa yhteyden niin backendissa dev versiossa morgan n\u00e4ytt\u00e4\u00e4....", url: "#nayta-kun-client-ottaa-yhteyden-niin-backendissa-dev-versiossa-morgan-nayttaa" },
+              {title: "PWA", url: "#pwa" },
+              {title: "Sizing", url: "#sizing" },
+              {title: "Mobile", url: "#mobile" },
+              {title: "mongoDb Schema", url: "#mongodb-schema" },
+              {title: "UI design", url: "#ui-design" },
+          ]},
+          {title: "mongodb.md:ss\u00e4!!!!", url: "#mongodbmdssa", children: [
+          ]},
+        ];
+
+    </script>
+<script src="../../js/base.js"></script>
+</meta></head>
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+<div class="container-fluid wm-page-content">
+<a name="_top"></a>
+<p>KOKEMU  SEEN</p>
+<h2 id="learning-curve">learning curve</h2>
+<p>I have learned from experience that starting the project from scratch would take much less time.</p>
+<h2 id="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</h2>
+<p>planning to use Python beacuse of multithreading because sumultanousus data fetchong na processing and storeing
+sentinelhub python api
+but few day later eent back to original plan. Purely because of earlier experiment MERN stack and it is needed for schedule 
+with this schedu I will achoeve more features actually everything which is needed, but not foget pythion evironment ans ecosystem in the future.
+I would prefer Python from the start/sctratch.
+but from the start I would chosee Python for the future bacause of AI etc. </p>
+<h3 id="getting-ndvi-data-statistiscs-and-prosessing-imagedata">getting NDVI data, statistiscs and prosessing Imagedata</h3>
+<p>For the plan base of the backend server needs node/express.
+for develing logginf morgan 
+Every applivation need database for storing data so it cn can be achieving faster and more eaier and not consuming resources of the sources sentinelhub
+request and processing limits and restrutions of the choosen plan.</p>
+<h3 id="store-the-data">Store the data</h3>
+<p>As MERN stack assumes that database choise would be Mongo. Another candidate was postgresql but Mongo got a win at this time.
+MongoDb at cloud could be MongoDb Atlas. This projet does not need complicated queries ad relations between tables jist few noSQL commands, otherwise SQL-bases postge could be better choice </p>
+<p>https://www.mongodb.com/atlas/database</p>
+<p>mongoose for mongodb would be the library which methods would be used.</p>
+<p>because of speed and costs, so musch data is time consuming wasting also the price for getting data everytime and processing it at sentinel-hub
+has a price, pretty expensive.</p>
+<h3 id="updating">Updating</h3>
+<p>routes </p>
+<p>login and regitratios</p>
+<h2 id="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx_1">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</h2>
+<p>22.03.2024
+(source) Data (in json) format should be inserted into database
+including geometrias of different areas (fields, plants) agriculture AOI (Area Of Interest)</p>
+<p>mongoDb Schema</p>
+<p>instead of "Go Live"
+<code>npx http-server . -p 8080</code>
+on build folder</p>
+<h2 id="state-variable-handling">STATE variable handling</h2>
+<p>when the app is growing will come a situation when redeux is more handy tha delvering variables as parameter/argument in a chain of elements 
+REDUX or context should be worth of 
+no need to deliver varibels element to element, probably chain...</p>
+<h3 id="ui-comments">UI comments</h3>
+<p>bootstao grid system would be more clearer separate kuin kikkailla
+resonsive Ui is pretty challengint to achieve, took lot of time.
+Probably the most challenging part of designing.</p>
+<p>For this document I ghave picked up some the most important issues/topics</p>
+<p>Animated gif
+kun bargraph clikataan pylvästä</p>
+<h3 id="nayta-kun-client-ottaa-yhteyden-niin-backendissa-dev-versiossa-morgan-nayttaa">näytä kun client ottaa yhteyden niin backendissa dev versiossa morgan näyttää....</h3>
+<h3 id="pwa">PWA</h3>
+<p>The easiest way is use template when creating the app with "npx create-react-app"
+1. using template
+npx create-react-app my-app --template cra-template-pwa</p>
+<ol>
+<li>
+<p>in index.js
+serviceWorkerRegistration.register();</p>
+</li>
+<li>
+<p>manifest.json</p>
+</li>
+</ol>
+<p>LIGTHOUSE test in developers tools</p>
+<p>I am nit sure is there reason to use PWA with this appalication.</p>
+<h3 id="sizing">Sizing</h3>
+<p>pienennä filmin kuvia</p>
+<p>to be notised  that mobile portrait , pc viewport and fullscreen 
+and PWA</p>
+<h4 id="fullscreen">Fullscreen</h4>
+<p>bootstrap grid system
+there is not height for row 1 &amp; 2
+paljonko on mt-5 pikseleissä/tarvitaanko tieto</p>
+<p>this demo has example näytä anmation gif eri näytttö koista</p>
+<h5 id="for-sizing-the-last-row-is-used-hook">for sizing the last row is used HOOK</h5>
+<p>useDynamicRowHeight
+rowRef </p>
+<p>useEffect(() =&gt; {</p>
+<pre><code>window.addEventListener("resize", handleResize);
+
+return () =&gt; {
+  window.removeEventListener("resize", handleResize);
+};
+</code></pre>
+<p>}, [rowRef]);</p>
+<h3 id="mobile">Mobile</h3>
+<p>It woukd be better to define separate branch for mobile and pc 
+so it would be easier to maintain ja implement further development.</p>
+<hr/>
+<p>21.03.2024
+database selection between mongoDb and postgereSql.
+-&gt; mongoDb was selected, reason the costs</p>
+<p>22.03.2024
+(source) Data (in json) format should be inserted into database
+including geometrias of different areas (fields, plants) agriculture AOI (Area Of Interest)</p>
+<h3 id="mongodb-schema">mongoDb Schema</h3>
+<p>wrapping the compoinent itself can not be modified just container around it forthe need</p>
+<h3 id="ui-design">UI design</h3>
+<p>trying to do a dynamic to be suitable for different size of displays
+helping guidelines
+import "./grid.css";
+className="grid-line"</p>
+<p>.grid-line {
+    border: 1px solid #ddd000;
+}</p>
+<p>MERMAID</p>
+<p>source:
+./src/data/workareas.json</p>
+<p>target:
+mongoDb schema workarea.js</p>
+<p>./src/mongo/models/workarea.js</p>
+<pre><code>var mongoose = require("mongoose");
+var workareaSchema = new mongoose.Schema({
+
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  workareaid: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  name: {
+    type: String,
+    required: true,
+    unique: false,
+  },
+  backofficeid: {
+    type: String,
+    required: true,
+    unique: false,
+  },  
+  geometry: {
+    type: Object,
+    required: true,
+    unique: true,
+  },
+  ndvi: {
+    type: Boolean,
+    default: false,
+  }
+});
+
+module.exports = new mongoose.model("Workarea", workareaSchema);
+</code></pre>
+<h1 id="mongodbmdssa">mongodb.md:ssä!!!!</h1>
+<p>mongodb.js saveWorkArea</p>
+<h4 id="url-path-route">url path route</h4>
+<p>./routes/dev-routes.js</p>
+<p>const devControllers = require('../controllers/dev-controllers');</p>
+<p>router.get('/workAreasToMongo', devControllers.workAreasToMongo);</p>
+<p>dev-controllers.js workAreasToMongo</p>
+<p>App.js
+if (process.env.NODE_ENV !== 'production') {
+  const devRouter = require('./routes/dev-routes');
+  app.use('/ndvi/api/v1', devRouter);
+}</p>
+<p>endpoint: .../ndvi/api/v1/workAreasToMongo</p>
+<div class="mermaid">sequenceDiagram
+  autonumber
+  participant Frontend
+  participant Backend
+  participant MongoDb
+
+  Frontend-&gt;&gt;Backend: GET /ndvi/api/v1/workAreasToMongo
+  activate Backend
+  note right of Backend: require("../data/workareas.json")
+  alt 
+    Backend-&gt;&gt;Backend: Loop through each workarea (index i)
+      Backend-&gt;&gt;MongoDb: Insert workarea data[i]  
+      MongoDb--&gt;&gt;Backend: Acknowledge insertion
+  else Loop Done
+  deactivate Backend
+  Backend-&gt;&gt;Frontend: Status 200 (successful)
+  end
+</div>
+<br/>
+</div>
+<footer class="container-fluid wm-page-content">
+<p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

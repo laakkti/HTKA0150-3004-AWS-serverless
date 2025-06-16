@@ -1,0 +1,60 @@
+site_name: HTKA0150-3004 AWS-serverless -NDVI demo for agriculture
+
+ 
+theme: windmill
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - toc:
+      toc_depth: 3
+
+extra:
+  article_nav_bottom: false
+  article_nav_top: false
+  history_buttons: true
+extra_css:
+  - style.css
+
+nav:    
+  - Introduction: index.md
+  - Using the service:    
+    - Client example: client/frontend.md 
+  - Endpoints:
+    #- Overview: routes/overview.md
+    - user: 
+      - overview: auth/cognito.md
+      - signup: auth/signup.md
+      - login: auth/login.md
+    - ndvi: 
+      - dates: routes/dates.md
+      - images: routes/images.md
+  - Tests:
+    - user: tests/user.md
+    - sentinelhub: tests/sentinelhub.md
+    - mongo: tests/mongo.md 
+    - ndvi: tests/ndvi.md 
+  - Sentinel-hub:
+    - Overview: sentinelhub/sentinelhub.md
+    - Evalscript: sentinelhub/evalscript.md
+    - Environment variables: misc/env.md
+    - Authentication: sentinelhub/sentinelhub_auth.md
+    - Main modules/methods:
+      - Token: sentinelhub/sentinelhub_token.md 
+      - GetStatistics: sentinelhub/getstatistics.md
+      - GetImage: sentinelhub/getimage.md   
+  - Database:
+    - Overview: database/overview.md
+    - MongoDB:      
+      - Environment variable: env.md
+      - Models: 
+         - datesSchema: database/models/dateschema.md
+         - imageSchema: database/models/imageschema.md         
+      - API (mongodb.js): database/mongodb_js.md
+  - Utilities: utils/utils.md 
+  - Libraries: libraries/libraries.md
+  - Deployment: deployment/deployment.md
+  - Development: development/development.md
+  # - Risks and challenges: risks_and_challenges/risks_and_challenges.md
+  #- The future: results/results.md

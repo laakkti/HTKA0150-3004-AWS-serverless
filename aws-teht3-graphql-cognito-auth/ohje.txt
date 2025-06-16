@@ -1,0 +1,28 @@
+AWS Cognito-autentikaatio Serverless frameworkilla toteutettuna
+
+npm i -komentoa ei tarvitse välttämättä ajaa, sillä tarvittava @aws-sdk -kirjasto
+on valmiiksi mukana AWS:n Node18.x:ssa.
+
+users-kansiossa ovat Lambda-funktiot ja helpers-kansiossa on pari niiden
+käyttämää apufunktiota.
+
+Aja serverless deploy, ja saat kolme reittiä, joihin meneminen laukaisee 
+kolme eri Lambda-funktiota. Reitit eroavat toisistaan siten, että osoitteet 
+päättyvät nimiin: signup, login ja private.
+
+1) Ensin mennään Postmanilla signup-reittiin, jossa 
+rekisteröidytään Cognitoon antamalla post-metodilla email ja salasana:
+
+{
+"email": "omanimi@jamk.fi",
+"password": "moi123"
+}
+
+2) Sitten voit loggautua emaililla ja passwordilla login-reitistä,
+jolloin saat JWT-tokenin.
+
+3) Sitten saat vastauksen private-reitistä, kun annat pyynnön mukana 
+JWT-tokenin. Tokenin voi antaa Postmanissa tekemällä Headersiin Authorization-avaimen,
+jolle arvoksi laitetaan JWT-token ilman lainausmerkkejä. Token voidaan antaa
+myös valitsemalla Auth-välilehti, sieltä Bearer Token, ja Token-kentän arvoksi 
+JWT-token ilman lainausmerkkejä.

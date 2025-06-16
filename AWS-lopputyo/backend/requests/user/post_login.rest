@@ -1,0 +1,7 @@
+POST https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/login
+Content-Type: application/json
+
+{
+  "email": "AA4598@student.jamk.fi",
+  "password": "topsecret"
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Risks and challenges - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <p>RISKIT lähinnä activate </p>
+<p>some issues was pretty challenges mostly because of speed, resctrictions and limitations of the resources
+lot of testing, kuormitus/stressi yms.
+especially concurrent task caused work to work
+overall performance was pretty good with the resources available. 
+mutta oli monipuolinen, haastava ja siten opettavainen työ</p>
+<pre><code>testing to get all works as fast as possible condsidering the restrictions and limitations of resources plans chosen/paid.
+gettin statistics and the imge need processing and it consumes
+amount od request nad processing units. There is restrictions for that.
+</code></pre>
+<p>because of need to get data as fast as possible we must speedup getiing data
+using concurrent processes axios.all will help
+Because all servers has specifig limits so sentinelhub has too for </p>
+<p>https://docs.sentinel-hub.com/api/latest/api/overview/rate-limiting/</p>
+<p>sentinelhub resources plan, traffic of the server
+network traffic end to end.</p>
+<p>azure service plan </p>
+<p>because of the emåyt database  it my need massive update process.
+so the most secue way is updat eone by one.
+It is possible concurrent update process but can not be promised to success </p>
+<p>riskit haastee ja resursstit
+which account/plan choose or you are ready to pay
+azure sekä sentinelhub</p>
+<p>because of nature of the data the is no big risk to fail the data fetching is not unique event like e.g. measuring event but the same data is osisble to fetch/request/query any time beacuse sentinelhub service holds the dat ain bigger picture after all.</p>
+<p>MIKÄ virheilmoitus että resurssit sentinelhubilla loppu!!!!</p>
+<p>if using some parallel mechanism it could cause at some point to fail to DOS (Denial of Service).
+Sentinelhub has limit reuest ja prosessing units of specifig time demepnds of your service plan.</p>
+<ol>
+<li>
+<p>sentinel-hub freea account plan montly resources is not enough for all data processing and fetching </p>
+</li>
+<li>
+<p>Mongodb free account 512 mb was not enough for all the data existing for NDVI data. </p>
+</li>
+</ol>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

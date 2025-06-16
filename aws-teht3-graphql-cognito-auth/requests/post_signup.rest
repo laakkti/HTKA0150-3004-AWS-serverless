@@ -1,0 +1,7 @@
+POST https://hwv3c16t2c.execute-api.eu-north-1.amazonaws.com/user/signup
+Content-Type: application/json
+
+{
+  "email": "AA4598@student.jamk.fi",
+  "password": "moi123"
+}

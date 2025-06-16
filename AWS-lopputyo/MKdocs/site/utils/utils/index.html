@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Utilities - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "image/getImageData.js", url: "#_top", children: [
+          ]},
+          {title: "image/scales.js", url: "#imagescalesjs", children: [
+          ]},
+          {title: "authenticate.js", url: "#authenticatejs", children: [
+          ]},
+          {title: "bboxRatio.js", url: "#bboxratiojs", children: [
+          ]},
+          {title: "calculateDim.js", url: "#calculatedimjs", children: [
+          ]},
+          {title: "checkToken.js", url: "#checktokenjs", children: [
+          ]},
+          {title: "dateTime.js", url: "#datetimejs", children: [
+          ]},
+          {title: "geoUtils.js", url: "#geoutilsjs", children: [
+          ]},
+          {title: "hash.js", url: "#hashjs", children: [
+          ]},
+          {title: "isdateingrowingseason.js", url: "#isdateingrowingseasonjs", children: [
+          ]},
+          {title: "middleware.js", url: "#middlewarejs", children: [
+          ]},
+          {title: "scheduleUpdateDb.js", url: "#scheduleupdatedbjs", children: [
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h3 id="imagegetimagedatajs">image/getImageData.js</h3>
+<ul>
+<li><code>getPixelData</code>: Processes the response to extract pixel data and calculate color percentages.</li>
+<li><code>getTemplate</code>: Creates a template with color percentages based on the given image.</li>
+<li><code>getImageData</code>: Generates image data including statistics and bounding box information.</li>
+</ul>
+<h3 id="imagescalesjs">image/scales.js</h3>
+<p>A template array containing objects with color information, amount, and from value.</p>
+<h3 id="authenticatejs">authenticate.js</h3>
+<ul>
+<li><code>authenticate</code>: Function to authenticate with Sentinel Hub API.</li>
+</ul>
+<h3 id="bboxratiojs">bboxRatio.js</h3>
+<ul>
+<li><code>calculateAutoDimensions</code>: Calculates the auto dimensions for width and height based on the provided geometry, maximum width, and maximum height.</li>
+<li><code>calculateMaxMetersPerPixel</code>: Calculates the maximum meters per pixel for a given geometry.</li>
+<li><code>calculatePixelSize</code>: Calculates the pixel size based on the provided geometry and dimensions.</li>
+</ul>
+<h3 id="calculatedimjs">calculateDim.js</h3>
+<ul>
+<li><code>calculateWidth</code>: Calculates the width dimension based on the given geometry and height.</li>
+<li><code>calculateHeight</code>: Calculates the height dimension based on the given geometry and width.</li>
+</ul>
+<h3 id="checktokenjs">checkToken.js</h3>
+<ul>
+<li><code>getTokenFrom</code>: Extracts the token from the authorization header of a request.</li>
+<li><code>checkAuthToken</code>: Checks the validity of the JWT token in the authorization header of a request.</li>
+</ul>
+<h3 id="datetimejs">dateTime.js</h3>
+<ul>
+<li><code>getFormattedTime</code>: Formats the elapsed time into minutes and seconds.</li>
+<li><code>zeroDateTime</code>: Sets the time of a date object to midnight (00:00:00.000).</li>
+<li><code>addOneDay</code>: Adds one day to the given date.</li>
+<li><code>sortByDateTime</code>: Sorts an array of objects by a specified date-time property.</li>
+</ul>
+<h3 id="geoutilsjs">geoUtils.js</h3>
+<ul>
+<li><code>getFeatureCollectionMultiPolygon</code>: Gets the multi-polygon geometry from a feature collection.</li>
+<li><code>appendPolygon</code>: Appends a polygon to the current geometry.</li>
+<li><code>isPolygon</code>: Checks if a geometry is a polygon.</li>
+<li><code>isMultiPolygon</code>: Checks if a geometry is a multi-polygon.</li>
+<li><code>isBbox</code>: Checks if a geometry is a bounding box.</li>
+<li><code>getLatLngFromBbox</code>: Gets the latitude and longitude coordinates from a bounding box.</li>
+<li><code>areAllNumbers</code>: Checks if all elements in an array are numbers.</li>
+<li><code>isValidBbox</code>: Checks if a bounding box is valid.</li>
+<li><code>isValidGeometry</code>: Checks if a geometry is valid.</li>
+<li><code>getBboxFromCoords</code>: Gets a bounding box from coordinates.</li>
+<li><code>getAreaFromGeometry</code>: Gets the area from a geometry.</li>
+<li><code>getAreaFromBounds</code>: Gets the area from a bounds object.</li>
+<li><code>getIntersection</code>: Calculates the intersection of two geometries.</li>
+<li><code>getProperGeometry</code>: Gets the proper geometry from bounds.</li>
+<li><code>getUnion</code>: Computes the union of two geometries.</li>
+<li><code>getAreaCoverPercentage</code>: Calculates the area cover percentage of one geometry over another.</li>
+<li><code>focusMap</code>: Focuses on the map element.</li>
+<li><code>getCoordsFromBbox</code>: Gets the coordinates from a bounding box.</li>
+</ul>
+<h3 id="hashjs">hash.js</h3>
+<ul>
+<li><code>sha256</code>: Calculates the SHA-256 hash of a given geometry object or string.</li>
+</ul>
+<h3 id="isdateingrowingseasonjs">isdateingrowingseason.js</h3>
+<ul>
+<li><code>isDateInGrowingSeason</code>: Checks if a given date falls within the specified growing season.</li>
+</ul>
+<h3 id="middlewarejs">middleware.js</h3>
+<ul>
+<li><code>getTokenFrom</code>: Retrieves the token from the request headers.</li>
+<li><code>tokenExtractor</code>: Middleware for extracting and verifying JWT token from requests.</li>
+</ul>
+<h3 id="scheduleupdatedbjs">scheduleUpdateDb.js</h3>
+<ul>
+<li><code>start</code>: Starts a cron job that runs the provided callback function at regular intervals.</li>
+<li><code>stop</code>: Stops the currently running cron job.</li>
+</ul>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>

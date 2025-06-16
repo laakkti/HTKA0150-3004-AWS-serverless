@@ -1,0 +1,7 @@
+POST https://lj9dq4eo0m.execute-api.eu-north-1.amazonaws.com/user/login
+Content-Type: application/json
+
+{
+  "email": "AA4598@student.jamk.fi",
+  "password": "moi123"
+}

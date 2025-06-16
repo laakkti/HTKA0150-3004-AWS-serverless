@@ -1,0 +1,102 @@
+.code-block {
+    width: 100%;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #546E7A;
+    font-size: 24px;
+}
+
+h2 {
+    color: #546E7A;
+    font-size: 22px;
+}
+
+h3 {
+    /*background-color: lightblue;*/
+    /*background-color: yellow;*/
+    color: #546E7A;
+    font-size: 20px;
+}
+
+
+h4 {
+    color: #546E7A;
+    font-size: 18px;
+ }
+ 
+
+ h5 {
+    color: red;
+    font-size: 18px; 
+ }
+ 
+ h6 {
+    color: #02231C;
+    font-size: 22px; 
+ }
+
+ h6 {
+    color: #004D25;
+    font-size: 22px; 
+ }
+
+ h6 {
+    color: #0F823B;
+    font-size: 22px; 
+ }
+ 
+ h6 {
+    color: #48C053;
+    font-size: 22px; 
+ }
+ 
+ h6 {
+    color: #006400;
+    font-size: 22px; 
+ }
+
+ h11 {
+    color: #228B22;
+    font-size: 22px; 
+ }
+
+ h12 {
+    color: #2E8B57;
+    font-size: 22px; 
+ }
+ 
+ h13 {
+    color: #556B2F;
+    font-size: 22px; 
+ }
+ 
+ h13 {
+    color: #2F4F4F;
+    font-size: 22px; 
+ }
+ 
+/* custom.css */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;  /* Set your desired background color */
+}
+
+
+/*
+body {
+    background-color: #FFFF00; /* Any color code or color name */
+}
+*/
