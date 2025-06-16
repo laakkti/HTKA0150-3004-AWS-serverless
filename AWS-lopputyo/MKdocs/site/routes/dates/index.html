@@ -52,10 +52,14 @@ if (is_top_frame) { $('body').addClass('wm-top-page'); }
 </script>
 <div class="container-fluid wm-page-content">
 <a name="_top"></a>
-<p>This connection is websocket connection. While getting data the situation/phases of the process is sent by websocket</p>
+<h4 id="dates">Dates</h4>
+<p>The connection method is WebSocket. The WebSocket connection is secured using a token during the connection process. 
+While getting data the situation/phases of the process is sent by websocket.</p>
 <p>Retrieves/returns a list of Sentinel-hub NDVI dates with statistics and updates the database if new data is available.</p>
-<p>List the days with found images for the given geometry found in Sentinel Hub. Service should store the given geometry and the days in which the images can be found so that there would be no need to re-query the days (only newer days from the last query should be queried) every time from Sentinel Hub. If the image is available for given day then the service should assign unique id "sentinelid" for that day and image.</p>
+<p>List the days with found images for the given geometry found in Sentinel Hub. Service should store the given geometry and the days in which the images can be found so that there would be no need to re-query the days (only newer days from the last query should be queried) every time from Sentinel Hub. If the image is available for given day then the service should assign unique id "sentinelid" for that day and image. </p>
+<h6 id="_1"></h6>
 <h2 id="connect">connect</h2>
+<p>During the connect function, a token is used to authenticate the WebSocket connection.</p>
 <div class="mermaid">sequenceDiagram
     Autonumber
     participant Client
@@ -194,7 +198,7 @@ TÄMÄ LIITTYY dates websocket kohtaan SIIRRÄÄ sinne!!! koska siellä vain oll
     geometry: geoJson,
   };
 socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));</p>
-<h6 id="_1"></h6>
+<h6 id="_2"></h6>
 <table>
 <thead>
 <tr>

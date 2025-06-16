@@ -376,7 +376,7 @@ const App = () => {
                 onClick={handleGetDates}
                 disabled={!geoJson || isProcessing}
               >
-                {isProcessing ? "Processing..." : ["Get NDVI Images"]}
+                {isProcessing ? "Processing..." : "Get NDVI Images"}
               </Button>
             </div>
           </div>

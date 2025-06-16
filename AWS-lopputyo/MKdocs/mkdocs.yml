@@ -22,14 +22,16 @@ nav:
   - Using the service:    
     - Client example: client/frontend.md 
   - Endpoints:
-    #- Overview: routes/overview.md
-    - user: 
+    - Overview: routes/overview.md
+    - User: 
       - overview: auth/cognito.md
       - signup: auth/signup.md
       - login: auth/login.md
-    - ndvi: 
+    - Ndvi: 
+      - geoJson validation: routes/validateGeojson.md 
       - dates: routes/dates.md
       - images: routes/images.md
+
   - Tests:
     - user: tests/user.md
     - sentinelhub: tests/sentinelhub.md

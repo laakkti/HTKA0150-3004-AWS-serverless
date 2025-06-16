@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Overview - HTKA0150-3004 AWS-serverless -NDVI demo for agriculture</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <link href="../../style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    <h4 id="endpoints">Endpoints</h4>
+<pre>
+endpoints:
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/login
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/signup
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/user/private
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/validategeojson
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/ndvi/getimages
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_token
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/get_statistics
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/sentinelhub/getimage
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/mongo/getdates
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/mongo/getimages
+  POST - https://vr6mgijfvf.execute-api.eu-north-1.amazonaws.com/mongo/getimage
+  wss://w2iuklgym6.execute-api.eu-north-1.amazonaws.com/dev
+
+functions:
+  loginUser: ndvi-websocket-app-dev-loginUser
+  signupUser: ndvi-websocket-app-dev-signupUser
+  privateAPI: ndvi-websocket-app-dev-privateAPI
+  connect: ndvi-websocket-app-dev-connect
+  disconnect: ndvi-websocket-app-dev-disconnect
+  getNdviDates: ndvi-websocket-app-dev-getNdviDates
+  validateGeojson: ndvi-websocket-app-dev-validateGeojson
+  get_allimages: ndvi-websocket-app-dev-get_allimages
+  get_sentinelhub_token: ndvi-websocket-app-dev-get_sentinelhub_token
+  get_sentinelhub_statistics: ndvi-websocket-app-dev-get_sentinelhub_statistics
+  get_sentinelhub_image: ndvi-websocket-app-dev-get_sentinelhub_image
+  get_mongo_dates: ndvi-websocket-app-dev-get_mongo_dates
+  get_mongo_allimages: ndvi-websocket-app-dev-get_mongo_allimages
+  get_mongo_image: ndvi-websocket-app-dev-get_mongo_image  
+</pre>
+
+  <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
