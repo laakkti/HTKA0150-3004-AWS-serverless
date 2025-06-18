@@ -55,7 +55,7 @@ const LoginDialog = ({ _show, showDialog, func}) => {
 
   const logLabels = () => {
     let _labels = {
-      title: "Login",
+      title: "Log in",
       btnClose: "Close",
     };
     setLabels(_labels);
@@ -185,7 +185,7 @@ const LoginDialog = ({ _show, showDialog, func}) => {
               <Modal.Footer>
                 <>
                   <Button
-                    variant="outline-secondary"
+                    variant="secondary"
                     className="mr-auto"
                     onClick={() => {
                       showRegisterForm(true);
@@ -194,7 +194,7 @@ const LoginDialog = ({ _show, showDialog, func}) => {
                     New user
                   </Button>
                   <Button
-                    variant="secondary"
+                    variant="outline-secondary"
                     onClick={() => {
                       handleLogin(false);
                     }}
@@ -202,7 +202,7 @@ const LoginDialog = ({ _show, showDialog, func}) => {
                     {labels.btnClose}
                   </Button>
                   <Button type="submit" variant="primary">
-                    Log in
+                    Login
                   </Button>
                 </>
               </Modal.Footer>

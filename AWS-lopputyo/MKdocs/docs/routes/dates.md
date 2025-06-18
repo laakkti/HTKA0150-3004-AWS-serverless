@@ -95,7 +95,7 @@ sequenceDiagram
     end
 ```
 
-## SentinelHub token-based authentication
+### SentinelHub token-based authentication
 
 For use of sentinelHub-service needs autentication token
 
@@ -181,7 +181,7 @@ socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));
 | wss://w2iuklgym6.execute-api.eu-north-1.amazonaws.com/dev |
 
 
-## **Request**
+## Request
 
 | Name         | Type                                   | Description                                                |
 |--------------|----------------------------------------|-------------------------------------------------------------|
@@ -197,7 +197,7 @@ socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));
 }
 ```
 
-## **Response**
+## Response
 
 | Name           | Type                                   | Description                                           |
 |----------------|----------------------------------------|-------------------------------------------------------|

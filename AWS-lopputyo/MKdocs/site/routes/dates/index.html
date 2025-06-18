@@ -30,8 +30,7 @@
           {title: "connect", url: "#_top", children: [
           ]},
           {title: "getNdviDates", url: "#getndvidates", children: [
-          ]},
-          {title: "SentinelHub token-based authentication", url: "#sentinelhub-token-based-authentication", children: [
+              {title: "SentinelHub token-based authentication", url: "#sentinelhub-token-based-authentication" },
           ]},
           {title: "Code locations", url: "#code-locations", children: [
           ]},
@@ -134,7 +133,7 @@ While getting data the situation/phases of the process is sent by websocket.</p>
         AWS-&gt;&gt;MongoDB: Store image data with statistics
     end
 </div>
-<h2 id="sentinelhub-token-based-authentication">SentinelHub token-based authentication</h2>
+<h3 id="sentinelhub-token-based-authentication">SentinelHub token-based authentication</h3>
 <p>For use of sentinelHub-service needs autentication token</p>
 <p>sentinekhub token pitää ottaa talteen sillä sitä ei voida kysellä joka requestin yhteydessä not allowed for...
 TÄMÄ LIITTYY dates websocket kohtaan SIIRRÄÄ sinne!!! koska siellä vain ollaan yhteydessä sentinelhubiin!!!!</p>
@@ -211,7 +210,7 @@ socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));</p>
 </tr>
 </tbody>
 </table>
-<h2 id="request"><strong>Request</strong></h2>
+<h2 id="request">Request</h2>
 <table>
 <thead>
 <tr>
@@ -244,7 +243,7 @@ socket.send(JSON.stringify({ action: "getNdviDates", data: geoData }));</p>
     "end_date": "dateString"
 }
 </code></pre>
-<h2 id="response"><strong>Response</strong></h2>
+<h2 id="response">Response</h2>
 <table>
 <thead>
 <tr>

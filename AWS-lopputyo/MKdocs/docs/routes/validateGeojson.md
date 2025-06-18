@@ -1,11 +1,3 @@
-pitääkä lisätä testeihin myös mutta tarttee 
-clientin koodin kautta jotenkin sorvata 
-pitäisköhän rewind laitaa myös serverille ja regex myös no JAA
-no silloin voiis rest-testin tehdä
-MUUTA löambdojen paluu arvot käyttämään headers ja bodyäöa tsekkaa onko harjoituksissa käytetty!!!!
-
-
-
 ## validateGeoJson
 
 Returns knowledge if given geoJson is valid or not.

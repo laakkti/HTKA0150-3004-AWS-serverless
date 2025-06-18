@@ -90,7 +90,7 @@ const saveSentinelDataToMongo = async (save, geometry, fromTime, toTime,handlePr
     console.log("Quering NDVI-dates from sentinelHub");
     await handleProgress("Quering NDVI-dates from sentinelHub",null);
 
-    let dates = await getSentinelDates(geometry, fromTime, toTime);
+    let dates = await getSentinelDates(geometry, fromTime, toTime); 
     let endTime = performance.now();
     var elapsedTime = endTime - startTime;
     console.log(
@@ -175,10 +175,11 @@ const getDates = async (
       isDateInGrowingSeason(toTime, growingSeason)
     );
     if (isDateInGrowingSeason(toTime, growingSeason)) {*/
+    
     if (data.dates[0].generationtime < dateTime.zeroDateTime(toTime)) {
       let fromTime = new Date(dateTime.addOneDay(data.dates[0].generationtime));
       console.log("#4", status);
-      status = await saveSentinelDataToMongo(false, geometry, fromTime, toTime);
+      status = await saveSentinelDataToMongo(false, geometry, fromTime, toTime,handleProgress);
     }
     //}
   }

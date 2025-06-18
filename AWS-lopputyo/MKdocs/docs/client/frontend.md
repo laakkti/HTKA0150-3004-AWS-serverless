@@ -1,5 +1,17 @@
 ## using the demo/example client app for the AWS-serverless
 
+
+
+Sovellusta voi kokeilla/testailla osoitteessa 
+https://laakkti.github.io/HTKA0150-3004-lopputyo-frontend/
+
+Kun pyydetään syöttämään/copy-paste geoJson geometria data niin niitä löytyy tiedostosta
+ 
+https://github.com/laakkti/HTKA0150-3004-AWS-serverless/blob/main/AWS-lopputyo/backend/data/workareas.json
+
+Esim. hakusanalla "Akanpelto", jota olen itse käyttänyt esimerkeissä, data latautuu nopeasti sillä se löytyy jo mongoDb_stä, valitsemalla jonkun muun prosessi sentinelHub:sta mongoDb Atlakseen kestää tapauskohtaisesti muutaman 10 sekuntia riippuen mm. pinta-alasta ja paljonko NDVi-karttoja on kyseiseltä ajalta (nyt asetus on, että viime vuoden ja tämän vuoden data huomioidaan).
+
+
 ### overview
 TARINAA TÄHÄN DOC/readme.md ja ytsp0300-3004
 

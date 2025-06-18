@@ -1,0 +1,1 @@
+<img src="../../img2/frontend/about.png" alt="image 1" width="800" style="display: block; margin: 0;"/>

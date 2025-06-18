@@ -1,6 +1,5 @@
 ## Get all images
 
-## PUUTTUU serverles.yml määritys
 
 ```
 requests/

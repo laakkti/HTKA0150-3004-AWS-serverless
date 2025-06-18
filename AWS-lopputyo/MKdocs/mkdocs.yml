@@ -21,6 +21,25 @@ nav:
   - Introduction: index.md
   - Using the service:    
     - Client example: client/frontend.md 
+    - Overview: client/overview.md    
+    - Authentication:      
+      - Sign up: client/registration.md
+      - Log in: client/login.md
+    - Inserting the geometry of the area of interest: client/selecting_area.md
+    - Getting the NDVI data: client/get_data.md 
+    - Selecting year of NDVI dates: client/selecting_year.md
+    - Selecting date of NDVI data: client/selecting_date.md    
+    - Display elements: client/elements.md    
+    
+    - Views:      
+      - Chart: client/chart.md
+      - Statistics: client/statistics.md
+      - On map: client/onmap.md
+      - Location: client/location.md
+      - Film: client/film.md
+      
+    - Play mode: client/auto_play.md
+    - About: client/about.md
   - Endpoints:
     - Overview: routes/overview.md
     - User: 
@@ -28,7 +47,7 @@ nav:
       - signup: auth/signup.md
       - login: auth/login.md
     - Ndvi: 
-      - geoJson validation: routes/validateGeojson.md 
+      - geoJson validation: routes/validateGeojson.md
       - dates: routes/dates.md
       - images: routes/images.md
 
